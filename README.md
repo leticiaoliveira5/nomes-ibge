@@ -33,7 +33,7 @@ $ cd nomes-ibge
 $ bundle install
 
 # Rode a aplicação no terminal com:
-$ ruby nomes.rb
+$ ruby lib/nomes.rb
 
 ```
 
