@@ -16,9 +16,17 @@ RSpec.describe 'Names App' do
   end
   it 'deve listar as UFs' do
     expect { listar_ufs }.to output(include('======== Lista das Unidades Federativas ========',
-                                            '[AC] Acre', 
+                                            '[AC] Acre',
                                             '[AM] Amazonas',
                                             '[SP] São Paulo',
                                             '[TO] Tocantins')).to_stdout
+  end
+  it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
+    expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
+  end
+  it 'Mostra os nomes mais frequentes na UF' do
+    expect do
+      mostrar_nomes_por_uf('AC')
+    end.to output(include(' Nomes mais frequentes - Acre ', '1 - MARIA', '2 - JOSE')).to_stdout
   end
 end
