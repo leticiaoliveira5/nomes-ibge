@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/names_app'
+
+bem_vindo
+listar_opcoes
+opcao = escolher_opcao
+
+loop do
+  case opcao
+  # when NOMES_POR_UF
+  # when NOMES_POR_CIDADE
+  # when NOMES_POR_PERIODO
+  when SAIR
+    break
+  else
+    puts 'Opção inválida'
+  end
+
+  listar_opcoes
+  opcao = escolher_opcao
+end

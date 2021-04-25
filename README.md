@@ -29,11 +29,15 @@ $ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
 # Acesse a pasta do projeto no terminal/cmd
 $ cd nomes-ibge
 
+# Estabeleça as permissões
+$ chmod +x ./bin/setup
+$ chmod +x ./bin/names_app
+
 # Instale as dependências
-$ bundle install
+$ bin/setup
 
 # Rode a aplicação no terminal com:
-$ ruby lib/nomes.rb
+$ ruby bin/names_app
 
 ```
 

@@ -1,10 +1,16 @@
+# frozen_string_literal: true
+
+# Variaveis
+
 NOMES_POR_UF = 1
 NOMES_POR_CIDADE = 2
 NOMES_POR_PERIODO = 3
 SAIR = 4
 
+# Metodos
+
 def bem_vindo
-  puts '======== Seja bem-vindo ao sistema de nomes do Brasil ========'
+  puts '======== Seja bem-vind@ ao sistema de nomes do Brasil ========'
 end
 
 def listar_opcoes
@@ -15,5 +21,7 @@ def listar_opcoes
   puts "[#{SAIR}] Sair"
 end
 
-bem_vindo
-listar_opcoes
+def escolher_opcao
+  print 'Digite o número da opção desejada: '
+  gets.to_i
+end

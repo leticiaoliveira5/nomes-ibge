@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'names_app'
 
-describe 'Names App' do
+RSpec.describe 'Names App' do
   it 'deve mostrar a mensagem de bem-vindo' do
-    expect { bem_vindo }.to output(a_string_including('Seja bem-vindo ao sistema de nomes do Brasil')).to_stdout
+    expect { bem_vindo }.to output(a_string_including('Seja bem-vind@ ao sistema de nomes do Brasil')).to_stdout
   end
   it 'deve mostrar opções de ação' do
     expect { listar_opcoes }.to output(include('Escolha a opção desejada:',
