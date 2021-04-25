@@ -18,7 +18,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 - [Ruby](https://www.ruby-lang.org/pt/documentation/installation/) versão: 2.7.2
 - [Git](https://git-scm.com) 
-- [SQLite3](https://www.sqlite.org/index.html)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ### 🎲 Rodando o App no Terminal:
 

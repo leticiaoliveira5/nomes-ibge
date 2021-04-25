@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require_relative '../lib/names_app'
+require_relative '../lib/uf'
 
 bem_vindo
 listar_opcoes
@@ -10,6 +11,8 @@ opcao = escolher_opcao
 loop do
   case opcao
   # when NOMES_POR_UF
+  # listar_ufs
+  # escolher_ufs
   # when NOMES_POR_CIDADE
   # when NOMES_POR_PERIODO
   when SAIR
