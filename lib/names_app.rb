@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'unidade_federativa'
+require_relative 'municipio'
 
 # Variaveis
 
@@ -50,10 +51,14 @@ def escolher_uf
   gets.chomp
 end
 
-def mostrar_nomes_por_uf(sigla)
+def encontrar_uf(sigla)
   response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
   json_response = JSON.parse(response.body)
-  unidade_federativa = json_response.select { |uf| uf['sigla'] == sigla.to_s }
+  json_response.select { |uf| uf['sigla'] == sigla.to_s }
+end
+
+def mostrar_nomes_por_uf(sigla)
+  unidade_federativa = encontrar_uf(sigla)
   if unidade_federativa.empty?
     opcao_invalida
   else
@@ -65,4 +70,19 @@ def mostrar_nomes_por_uf(sigla)
     json_resposta = JSON.parse(resposta.body)
     json_resposta[0]['res'].each { |uf| puts "#{uf['ranking']} - #{uf['nome']}" }
   end
+end
+
+def listar_cidades(sigla)
+  unidade_federativa = encontrar_uf(sigla)
+  puts
+  puts "======== Municípios - #{unidade_federativa[0]['nome']} ========"
+  puts
+  municipios = Municipio.all.select { |m| m.unidade_federativa == sigla }
+  municipios.each { |municipio| puts municipio.nome.to_s }
+  # json_response.each { |municipio| puts municipio['nome'].to_s }
+end
+
+def escolher_municipio
+  print 'Digite o nome do município: '
+  gets.chomp
 end

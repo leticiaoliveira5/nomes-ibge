@@ -15,6 +15,10 @@ loop do
     mostrar_nomes_por_uf(sigla)
   when NOMES_POR_CIDADE
     listar_ufs
+    sigla = escolher_uf
+    listar_cidades(sigla)
+    nome = escolher_municipio
+    mostrar_nomes_por_municipio(nome, sigla)
   # when NOMES_POR_PERIODO
   when SAIR
     break
