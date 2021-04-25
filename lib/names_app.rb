@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require_relative 'unidade_federativa'
 # Variaveis
 
 NOMES_POR_UF = 1
@@ -24,4 +24,14 @@ end
 def escolher_opcao
   print 'Digite o número da opção desejada: '
   gets.to_i
+end
+
+def listar_ufs
+  puts '======== Lista das Unidades Federativas ========'
+  UnidadeFederativa.all.each { |uf| puts "[#{uf.sigla}] #{uf.nome}" }
+end
+
+def escolher_uf
+  print 'Digite a sigla da UF desejada: '
+  gets.chomp
 end

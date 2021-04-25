@@ -14,4 +14,11 @@ RSpec.describe 'Names App' do
                                                '[3] Frequência do uso de um nome por período',
                                                '[4] Sair')).to_stdout
   end
+  it 'deve listar as UFs' do
+    expect { listar_ufs }.to output(include('======== Lista das Unidades Federativas ========',
+                                            '[AC] Acre', 
+                                            '[AM] Amazonas',
+                                            '[SP] São Paulo',
+                                            '[TO] Tocantins')).to_stdout
+  end
 end
