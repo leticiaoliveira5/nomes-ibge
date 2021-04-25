@@ -4,7 +4,6 @@
 require_relative 'lib/names_app'
 
 bem_vindo
-listar_opcoes
 opcao = escolher_opcao
 
 loop do
@@ -21,6 +20,7 @@ loop do
     mostrar_nomes_por_municipio(nome, sigla)
   # when NOMES_POR_PERIODO
   when SAIR
+    tchau
     break
   else
     opcao_invalida

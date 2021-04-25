@@ -27,7 +27,7 @@ RSpec.describe 'Names App' do
     end
 
     it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
-      expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
+      expect { encontrar_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
 
     it 'Mostra os nomes mais frequentes na UF' do
