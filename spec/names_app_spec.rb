@@ -25,21 +25,26 @@ RSpec.describe 'Names App' do
                                               '[SP] São Paulo',
                                               '[TO] Tocantins')).to_stdout
     end
-
-    it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
-      expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
+    it 'Lista as municipios da UF escolhida' do
+      expect { listar_municipios('SE') }.to output(include('Municípios - Sergipe',
+                                                           'Aquidabã',
+                                                           'Areia Branca')).to_stdout
     end
+  end
 
+  context 'Resultados' do
     it 'Mostra os nomes mais frequentes na UF' do
       expect { mostrar_nomes_por_uf('AC') }.to output(include(' Nomes mais frequentes - Acre ',
                                                               '1 - MARIA',
                                                               '2 - JOSE')).to_stdout
     end
-
-    it 'Lista as municipios da UF escolhida' do
-      expect { listar_municipios('SE') }.to output(include('Municípios - Sergipe', 
-                                                           'Aquidabã', 
-                                                           'Areia Branca')).to_stdout
+    it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
+      expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
+    end
+    it 'Mostra nomes mais frequentes no Municipio' do
+      expect { mostrar_nomes_por_municipio('Tefé', 'AM') }.to output(include('Nomes mais frequentes - Tefé/AM',
+                                                                             '1 - MARIA',
+                                                                             '2 - JOSE')).to_stdout
     end
   end
 end

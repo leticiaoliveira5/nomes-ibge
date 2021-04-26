@@ -22,4 +22,10 @@ class Municipio
       Municipio.new(obj['nome'], obj['id'], obj['regiao-imediata']['regiao-intermediaria']['UF']['sigla'])
     end
   end
+
+  def nomes_populares
+    resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
+    resposta_json = JSON.parse(resposta.body)
+    resposta_json[0]['res']
+  end
 end
