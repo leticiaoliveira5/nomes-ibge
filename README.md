@@ -7,7 +7,6 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 
 ### :white_check_mark: Funcionalidades
 
-- Desafio 1
 - [x] Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)
 - [ ] Ranking dos nomes mais comuns em uma determinada cidade
 - [ ] Frequência do uso de um nome ao longo dos anos
@@ -48,7 +47,7 @@ $ ruby names_app.rb
 # Execute o comando
 $ rspec
 ```
-### :satellite: Fontes IBGE
+### :satellite: Fontes
 
 - API de Localidades: https://servicodados.ibge.gov.br/api/docs/localidades?versao=1
 - API de Nomes: https://servicodados.ibge.gov.br/api/docs/nomes?versao=2

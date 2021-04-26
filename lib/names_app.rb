@@ -91,8 +91,12 @@ end
 
 def mostrar_nomes_por_municipio(nome, sigla_da_uf)
   municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_da_uf }
-  puts
-  puts "======== Nomes mais frequentes - #{municipio.nome}/#{sigla_da_uf} ========"
-  puts
-  municipio.nomes_populares.each { |n| puts "#{n['ranking']} - #{n['nome']}" }
+  if !municipio.nil?
+    puts
+    puts "======== Nomes mais frequentes - #{municipio.nome}/#{sigla_da_uf} ========"
+    puts
+    municipio.nomes_populares.each { |n| puts "#{n['ranking']} - #{n['nome']}" }
+  else
+    opcao_invalida
+  end
 end
