@@ -20,4 +20,14 @@ class UnidadeFederativa
     json_response = JSON.parse(response.body)
     json_response.map { |obj| UnidadeFederativa.new(obj['sigla'], obj['nome'], obj['id']) }
   end
+
+  def self.encontrar_uf(sigla)
+    UnidadeFederativa.all.find { |uf| uf.sigla == sigla.to_s }
+  end
+
+  def nomes_populares
+    resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
+    json_resposta = JSON.parse(resposta.body)
+    json_resposta[0]['res']
+  end
 end

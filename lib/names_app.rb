@@ -49,6 +49,7 @@ end
 def listar_ufs
   puts
   puts '======== Lista das Unidades Federativas ========'
+  puts
   UnidadeFederativa.all.each { |uf| puts "[#{uf.sigla}] #{uf.nome}" }
   puts
 end
@@ -58,34 +59,29 @@ def escolher_uf
   gets.chomp
 end
 
-def encontrar_uf(sigla)
-  response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-  json_response = JSON.parse(response.body)
-  unidade_federativa = json_response.select { |uf| uf['sigla'] == sigla.to_s }
-  if unidade_federativa.empty?
+def mostrar_nomes_por_uf(sigla)
+  uf = UnidadeFederativa.encontrar_uf(sigla)
+  if uf.nil?
     opcao_invalida
   else
-    unidade_federativa
+    puts
+    puts "======== Nomes mais frequentes - #{uf.nome} ========"
+    puts
+    uf.nomes_populares.each { |n| puts "#{n['ranking']} - #{n['nome']}" }
   end
 end
 
-def mostrar_nomes_por_uf(sigla)
-  unidade_federativa = encontrar_uf(sigla)
-  puts
-  puts "======== Nomes mais frequentes - #{unidade_federativa[0]['nome']} ========"
-  codigo = unidade_federativa[0]['id']
-  resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
-  json_resposta = JSON.parse(resposta.body)
-  json_resposta[0]['res'].each { |uf| puts "#{uf['ranking']} - #{uf['nome']}" }
-end
-
-def listar_cidades(sigla)
-  unidade_federativa = encontrar_uf(sigla)
-  puts
-  puts "======== Municípios - #{unidade_federativa[0]['nome']} ========"
-  puts
-  municipios = Municipio.all.select { |m| m.unidade_federativa == sigla }
-  municipios.each { |municipio| puts municipio.nome.to_s }
+def listar_municipios(sigla)
+  uf = UnidadeFederativa.encontrar_uf(sigla)
+  if uf.nil?
+    opcao_invalida
+  else
+    puts
+    puts "======== Municípios - #{uf.nome} ========"
+    puts
+    municipios = Municipio.all.select { |m| m.unidade_federativa == sigla }
+    municipios.each { |m| puts m.nome.to_s }
+  end
 end
 
 def escolher_municipio

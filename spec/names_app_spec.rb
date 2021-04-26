@@ -27,7 +27,7 @@ RSpec.describe 'Names App' do
     end
 
     it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
-      expect { encontrar_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
+      expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
 
     it 'Mostra os nomes mais frequentes na UF' do
@@ -36,8 +36,10 @@ RSpec.describe 'Names App' do
                                                               '2 - JOSE')).to_stdout
     end
 
-    it 'Lista as cidades da UF escolhida' do
-      expect { listar_cidades('SE') }.to output(include('Municípios - Sergipe', 'Aquidabã', 'Areia Branca')).to_stdout
+    it 'Lista as municipios da UF escolhida' do
+      expect { listar_municipios('SE') }.to output(include('Municípios - Sergipe', 
+                                                           'Aquidabã', 
+                                                           'Areia Branca')).to_stdout
     end
   end
 end
