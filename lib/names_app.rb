@@ -108,15 +108,27 @@ end
 def frequencia_por_periodo(busca)
   response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C').gsub(' ', '')}")
   json_response = JSON.parse(response.body)
-  rows = []
   headings = ['Período']
-  data = []
-  json_response.each do |hash|
-    headings << hash['nome']
-    data << hash['res']
-  end
-  rows << data.map { |a| [a[0]['periodo'], a[0]['frequencia']] }.flatten.uniq
+  rows = []
+  json_response.map { |hash| headings << hash['nome'] }
+  periodos = []
+  json_response.map { |hash| hash['res'].map { |h| periodos << h['periodo'] } }
+  periodos = periodos.uniq.sort
 
+  periodos.each do |p|
+    row = []
+    row << p
+    json_response.each do |hash|
+      if hash['res'].find { |h| h.key(p.to_s) }.nil?
+        row << '-'
+      else
+        hash['res'].each do |v|
+          row << v['frequencia'] if v['periodo'] == p
+        end
+      end
+    end
+    rows << row
+  end
   table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período', headings: headings, rows: rows
   puts table
 end

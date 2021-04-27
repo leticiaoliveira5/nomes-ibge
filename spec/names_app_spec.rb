@@ -42,7 +42,7 @@ RSpec.describe 'Names App' do
       expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
     it 'Mostra nomes mais frequentes no Municipio' do
-      expect { mostrar_nomes_por_municipio('Tefé', 'AM') }.to output(include('Nomes mais frequentes - Tefé/AM',
+      expect { mostrar_nomes_por_municipio('Tefé', 'AM') }.to output(include('Nomes mais frequentes - Tefé(AM)',
                                                                              '1', 'MARIA',
                                                                              '2', 'JOSE')).to_stdout
     end
