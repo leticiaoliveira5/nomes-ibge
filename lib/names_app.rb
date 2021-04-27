@@ -66,10 +66,10 @@ def mostrar_nomes_por_uf(sigla)
   if uf.nil?
     opcao_invalida
   else
-    puts
-    puts "======== Nomes mais frequentes - #{uf.nome} ========"
-    puts
-    uf.nomes_populares.each { |n| puts "#{n['ranking']} - #{n['nome']}" }
+    rows = []
+    uf.nomes_populares.each { |n| rows << [n['ranking'], n['nome']] }
+    table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}", headings: %w[Ranking Nome], rows: rows
+    puts table
   end
 end
 
@@ -95,24 +95,30 @@ end
 def mostrar_nomes_por_municipio(nome, sigla_uf)
   municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_uf }
   if municipio
-    puts
-    puts "======== Nomes mais frequentes - #{municipio.nome}/#{sigla_uf} ========"
-    puts
-    municipio.nomes_populares.each { |n| puts "#{n['ranking']} - #{n['nome']}" }
+    rows = []
+    municipio.nomes_populares.each { |n| rows << [n['ranking'], n['nome']] }
+    table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
+                                headings: %w[Ranking Nome], rows: rows
+    puts table
   else
     opcao_invalida
   end
 end
 
 def frequencia_por_periodo(busca)
-  response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C')}")
+  response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C').gsub(' ', '')}")
   json_response = JSON.parse(response.body)
-  json_response.each do |array|
-    puts array['nome']
-    array['res'].each do |hash|
-      puts "Período: #{hash['periodo']} - Frequência: #{hash['frequencia']}"
-    end
+  rows = []
+  headings = ['Período']
+  data = []
+  json_response.each do |hash|
+    headings << hash['nome']
+    data << hash['res']
   end
+  rows << data.map { |a| [a[0]['periodo'], a[0]['frequencia']] }.flatten.uniq
+
+  table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período', headings: headings, rows: rows
+  puts table
 end
 
 def busca_nomes

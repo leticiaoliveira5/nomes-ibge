@@ -35,27 +35,27 @@ RSpec.describe 'Names App' do
   context 'Resultados' do
     it 'Mostra os nomes mais frequentes na UF' do
       expect { mostrar_nomes_por_uf('AC') }.to output(include(' Nomes mais frequentes - Acre ',
-                                                              '1 - MARIA',
-                                                              '2 - JOSE')).to_stdout
+                                                              '1', 'MARIA',
+                                                              '2', 'JOSE')).to_stdout
     end
     it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
       expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
     it 'Mostra nomes mais frequentes no Municipio' do
       expect { mostrar_nomes_por_municipio('Tefé', 'AM') }.to output(include('Nomes mais frequentes - Tefé/AM',
-                                                                             '1 - MARIA',
-                                                                             '2 - JOSE')).to_stdout
+                                                                             '1', 'MARIA',
+                                                                             '2', 'JOSE')).to_stdout
     end
     it 'Mostra erro se município não existe' do
       expect { mostrar_nomes_por_municipio('Cabo', 'AM') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
     it 'Mostra frequência do nome buscado' do
       expect { frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
-                                                                        'Período: 1930[ - Frequência: 254',
-                                                                        'Período: [1930,1940[ - Frequência: 582',
+                                                                        '1930[', '254',
+                                                                        '[1930,1940[', '582',
                                                                         'MARIA',
-                                                                        'Período: 1930[ - Frequência: 336477',
-                                                                        'Período: [1930,1940[ - Frequência: 749053')).to_stdout
+                                                                        '1930[', '336477',
+                                                                        '[1930,1940[', '749053')).to_stdout
     end
   end
 end
