@@ -38,8 +38,12 @@ GEM
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
     ruby2_keywords (0.0.4)
+    smarter_csv (1.2.8)
+    terminal-table (3.0.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    unicode-display_width (1.7.0)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -51,6 +55,8 @@ DEPENDENCIES
   pg (~> 0.18.4)
   rake
   rspec
+  smarter_csv
+  terminal-table
 
 BUNDLED WITH
    2.1.4

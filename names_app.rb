@@ -10,16 +10,13 @@ loop do
   case opcao
   when NOMES_POR_UF
     listar_ufs
-    sigla_da_uf = escolher_uf
-    mostrar_nomes_por_uf(sigla_da_uf)
+    sigla_uf = escolher_uf
+    mostrar_nomes_por_uf(sigla_uf)
   when NOMES_POR_CIDADE
     listar_ufs
-    sigla_da_uf = escolher_uf
-    listar_municipios(sigla_da_uf)
-    unless listar_municipios(sigla_da_uf).nil?
-      nome = escolher_municipio
-      mostrar_nomes_por_municipio(nome, sigla_da_uf)
-    end
+    sigla_uf = escolher_uf
+    listar_municipios(sigla_uf)
+    escolher_municipio(sigla_uf)
   when NOMES_POR_PERIODO
     busca_nomes
   when SAIR

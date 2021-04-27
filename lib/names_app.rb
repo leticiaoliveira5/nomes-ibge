@@ -86,14 +86,15 @@ def listar_municipios(sigla)
   end
 end
 
-def escolher_municipio
+def escolher_municipio(sigla_uf)
   print 'Digite o nome do município: '
-  gets.chomp
+  nome = gets.chomp
+  mostrar_nomes_por_municipio(nome, sigla_uf)
 end
 
 def mostrar_nomes_por_municipio(nome, sigla_uf)
   municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_uf }
-  if !municipio.nil?
+  if municipio
     puts
     puts "======== Nomes mais frequentes - #{municipio.nome}/#{sigla_uf} ========"
     puts

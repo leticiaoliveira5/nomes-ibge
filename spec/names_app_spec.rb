@@ -46,6 +46,9 @@ RSpec.describe 'Names App' do
                                                                              '1 - MARIA',
                                                                              '2 - JOSE')).to_stdout
     end
+    it 'Mostra erro se município não existe' do
+      expect { mostrar_nomes_por_municipio('Cabo', 'AM') }.to output(a_string_including('Opção Inválida')).to_stdout
+    end
     it 'Mostra frequência do nome buscado' do
       expect { frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
                                                                         'Período: 1930[ - Frequência: 254',
