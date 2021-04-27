@@ -41,6 +41,7 @@ $ ruby names_app.rb
 - [Faraday](https://rubygems.org/gems/faraday?locale=pt-BR)
 - [Rspec](https://rubygems.org/gems/rspec?locale=pt-BR)
 - [Rake](https://rubygems.org/gems/rake?locale=pt-BR)
+- [Terminal-table](https://rubygems.org/gems/terminal-table/)
 
 ### :heavy_check_mark: Testando o código
 ```bash

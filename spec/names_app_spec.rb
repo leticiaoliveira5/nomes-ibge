@@ -19,11 +19,11 @@ RSpec.describe 'Names App' do
 
   context 'Opções' do
     it 'deve listar as UFs' do
-      expect { listar_ufs }.to output(include('======== Lista das Unidades Federativas ========',
-                                              '[AC] Acre',
-                                              '[AM] Amazonas',
-                                              '[SP] São Paulo',
-                                              '[TO] Tocantins')).to_stdout
+      expect { listar_ufs }.to output(include('Lista das Unidades Federativas',
+                                              'Acre', 'AC',
+                                              'Amazonas', 'AM',
+                                              'São Paulo', 'SP',
+                                              'Tocantins', 'TO')).to_stdout
     end
     it 'Lista as municipios da UF escolhida' do
       expect { listar_municipios('SE') }.to output(include('Municípios - Sergipe',

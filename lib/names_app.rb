@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'terminal-table'
 require 'faraday'
 require 'json'
 require_relative 'unidade_federativa'
@@ -49,11 +50,10 @@ def tchau
 end
 
 def listar_ufs
-  puts
-  puts '======== Lista das Unidades Federativas ========'
-  puts
-  UnidadeFederativa.all.each { |uf| puts "[#{uf.sigla}] #{uf.nome}" }
-  puts
+  rows = []
+  UnidadeFederativa.all.each { |uf| rows << [uf.sigla, uf.nome] }
+  table = Terminal::Table.new title: 'Lista das Unidades Federativas', headings: %w[Sigla Nome], rows: rows
+  puts table
 end
 
 def escolher_uf
