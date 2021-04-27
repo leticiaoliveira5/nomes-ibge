@@ -8,8 +8,9 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 ### :white_check_mark: Funcionalidades
 
 - [x] Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)
-- [ ] Ranking dos nomes mais comuns em uma determinada cidade
-- [ ] Frequência do uso de um nome ao longo dos anos
+- [x] Ranking dos nomes mais comuns em uma determinada cidade
+- [ ] Rankings dos nomes separados por gênero
+- [x] Frequência do uso de um nome ao longo dos anos
 
 ### :warning: Pré-requisitos
 

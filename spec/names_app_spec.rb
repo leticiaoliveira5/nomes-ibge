@@ -57,5 +57,12 @@ RSpec.describe 'Names App' do
                                                                         '1930[', '336477',
                                                                         '[1930,1940[', '749053')).to_stdout
     end
+    it 'Mostra dicas caso a busca não retorne resultado' do
+      expect { frequencia_por_periodo('Magaalii') }.to output(include('O nome não foi encontrado',
+                                                                      '====== Dicas de busca =======',
+                                                                      '- Não use caracteres especiais, apenas vírgula para separar os nomes',
+                                                                      '- Não busque nomes compostos',
+                                                                      '- Não use acentos')).to_stdout
+    end
   end
 end
