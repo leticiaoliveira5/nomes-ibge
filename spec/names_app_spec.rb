@@ -46,5 +46,13 @@ RSpec.describe 'Names App' do
                                                                              '1 - MARIA',
                                                                              '2 - JOSE')).to_stdout
     end
+    it 'Mostra frequência do nome buscado' do
+      expect { frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
+                                                                        'Período: 1930[ - Frequência: 254',
+                                                                        'Período: [1930,1940[ - Frequência: 582',
+                                                                        'MARIA',
+                                                                        'Período: 1930[ - Frequência: 336477',
+                                                                        'Período: [1930,1940[ - Frequência: 749053')).to_stdout
+    end
   end
 end

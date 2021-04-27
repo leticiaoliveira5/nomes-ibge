@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'faraday'
+require 'json'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
 
@@ -89,14 +91,31 @@ def escolher_municipio
   gets.chomp
 end
 
-def mostrar_nomes_por_municipio(nome, sigla_da_uf)
-  municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_da_uf }
+def mostrar_nomes_por_municipio(nome, sigla_uf)
+  municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_uf }
   if !municipio.nil?
     puts
-    puts "======== Nomes mais frequentes - #{municipio.nome}/#{sigla_da_uf} ========"
+    puts "======== Nomes mais frequentes - #{municipio.nome}/#{sigla_uf} ========"
     puts
     municipio.nomes_populares.each { |n| puts "#{n['ranking']} - #{n['nome']}" }
   else
     opcao_invalida
   end
+end
+
+def frequencia_por_periodo(busca)
+  response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C')}")
+  json_response = JSON.parse(response.body)
+  json_response.each do |array|
+    puts array['nome']
+    array['res'].each do |hash|
+      puts "Período: #{hash['periodo']} - Frequência: #{hash['frequencia']}"
+    end
+  end
+end
+
+def busca_nomes
+  print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
+  busca = gets.chomp
+  frequencia_por_periodo(busca)
 end

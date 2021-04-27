@@ -1,9 +1,9 @@
 # :memo: Desafios Ruby - Nomes Populares do Brasil
 Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nomes populares no Brasil, fazendo uso de dados do IBGE.
 
-<h4 align="center"> 
+<h3 align="center"> 
 	🚧  Em construção...  🚧
-</h4>
+</h3>
 
 ### :white_check_mark: Funcionalidades
 

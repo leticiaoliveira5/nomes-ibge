@@ -20,7 +20,8 @@ loop do
       nome = escolher_municipio
       mostrar_nomes_por_municipio(nome, sigla_da_uf)
     end
-  # when NOMES_POR_PERIODO
+  when NOMES_POR_PERIODO
+    busca_nomes
   when SAIR
     tchau
     break
