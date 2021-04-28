@@ -105,41 +105,43 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
   end
 end
 
-def frequencia_por_periodo(busca)
-  response = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C').gsub(' ', '')}")
-  json_response = JSON.parse(response.body)
-  if json_response.empty?
-    dicas_busca
-  else
-    rows = []
-    periodos = []
-    headings = ['Período']
-    json_response.each do |hash| 
-      headings << hash['nome']
-      hash['res'].map { |h| periodos << h['periodo'] }
-    end
-    periodos = periodos.uniq.sort
-    periodos.each do |periodo|
-      row = []
-      row << periodo
-      json_response.each do |hash|
-        if hash['res'].find { |h| h.key(periodo.to_s) }.nil?
-          row << '-'
-        else
-          hash['res'].each { |a| row << a['frequencia'] if a['periodo'] == periodo }
-        end
-      end
-      rows << row
-    end
-    table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período', headings: headings, rows: rows
-    puts table
-  end
-end
-
 def busca_nomes
   print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
   busca = gets.chomp
   frequencia_por_periodo(busca)
+end
+
+def frequencia_por_periodo(busca)
+  resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C').gsub(' ', '')}")
+  resp_json = JSON.parse(resp.body, symbolize_names: true)
+  if resp_json.empty?
+    dicas_busca
+  else
+    mostrar_nomes_por_periodo(resp_json)
+  end
+end
+
+def mostrar_nomes_por_periodo(resp_json)
+  rows = []
+  headings = ['PERÍODO']
+  periodos = []
+  resp_json.each do |hash|
+    headings << hash[:nome]
+    hash[:res].map { |h| periodos << h[:periodo] }.flatten
+  end
+  periodos = periodos.uniq.sort
+  periodos.each do |periodo|
+    row = []
+    row << periodo
+    resp_json.each do |hash|
+      p = hash[:res].find { |a| a[:periodo] == periodo }
+      p ? row << p[:frequencia] : row << '-'
+      # {condition} ? {if-code-block} : {else-code-block}
+    end
+    rows << row
+  end
+  table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período', headings: headings, rows: rows
+  puts table
 end
 
 def dicas_busca
@@ -148,7 +150,8 @@ def dicas_busca
   puts
   puts '====== Dicas de busca ======='
   puts '- Não use acentos'
-  puts '- Não use caracteres especiais, apenas vírgula para separar os nomes'
+  puts '- Não use caracteres especiais,'
+  puts 'apenas vírgula para separar os nomes'
   puts '- Não busque nomes compostos'
   puts
 end
