@@ -68,7 +68,8 @@ def mostrar_nomes_por_uf(sigla)
   else
     rows = []
     uf.nomes_populares.each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
-    table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}", headings: %w[RANKING NOME FREQUENCIA], rows: rows
+    table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
+                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
     puts table
     nomes_por_sexo(uf.codigo)
   end
@@ -112,7 +113,7 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
     rows = []
     municipio.nomes_populares.each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
     table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
-                                headings: %w[RANKING NOME], rows: rows
+                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
     puts table
     nomes_por_sexo(municipio.codigo)
   else

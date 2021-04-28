@@ -17,9 +17,9 @@ class Municipio
 
     return [] if response.status == 400
 
-    json_response = JSON.parse(response.body, symbolize_names: true)
+    json_response = JSON.parse(response.body)
     json_response.map do |obj|
-      Municipio.new(obj[:nome], obj[:id], obj[:regiao-imediata][:regiao-intermediaria][:UF][:sigla])
+      Municipio.new(obj['nome'], obj['id'], obj['regiao-imediata']['regiao-intermediaria']['UF']['sigla'])
     end
   end
 
