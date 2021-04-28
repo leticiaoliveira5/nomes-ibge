@@ -67,8 +67,22 @@ def mostrar_nomes_por_uf(sigla)
     opcao_invalida
   else
     rows = []
-    uf.nomes_populares.each { |n| rows << [n['ranking'], n['nome']] }
-    table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}", headings: %w[Ranking Nome], rows: rows
+    uf.nomes_populares.each { |n| rows << [n['ranking'], n['nome'], n['frequencia']] }
+    table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}", headings: %w[RANKING NOME FREQUENCIA], rows: rows
+    puts table
+    nomes_por_sexo(uf.codigo)
+  end
+end
+
+def nomes_por_sexo(localidade)
+  sexos = %w[M F]
+  sexos.each do |sexo|
+    resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?sexo=#{sexo}&localidade=#{localidade}")
+    resp_json = JSON.parse(resp.body, symbolize_names: true)
+    rows = []
+    resp_json[0][:res].each { |hash| rows << [hash[:ranking], hash[:nome], hash[:frequencia]] }
+    table = Terminal::Table.new title: "Nomes mais frequentes por sexo - #{sexo}",
+                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
     puts table
   end
 end
@@ -100,6 +114,7 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
     table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
                                 headings: %w[Ranking Nome], rows: rows
     puts table
+    nomes_por_sexo(municipio.codigo)
   else
     opcao_invalida
   end

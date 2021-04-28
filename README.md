@@ -9,8 +9,9 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 
 - [x] Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)
 - [x] Ranking dos nomes mais comuns em uma determinada cidade
-- [ ] Rankings dos nomes separados por gênero
+- [x] Rankings dos nomes separados por gênero
 - [x] Frequência do uso de um nome ao longo dos anos
+- [ ] Carrega dados ao iniciar
 
 ### :warning: Pré-requisitos
 
@@ -39,9 +40,9 @@ $ ruby nomes_do_brasil.rb
 
 ### :gem: Gems utilizadas
 
-- [Faraday](https://rubygems.org/gems/faraday?locale=pt-BR)
-- [Rspec](https://rubygems.org/gems/rspec?locale=pt-BR)
-- [Terminal-table](https://rubygems.org/gems/terminal-table/)
+- [Faraday](https://rubygems.org/gems/faraday?locale=pt-BR) - para lidar com requisições http
+- [Rspec](https://rubygems.org/gems/rspec?locale=pt-BR) - para testar o código
+- [Terminal-table](https://rubygems.org/gems/terminal-table/) - para criar as tabelas exibidas no terminal
 
 ### :heavy_check_mark: Testando o código
 ```bash
