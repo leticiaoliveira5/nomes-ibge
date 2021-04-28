@@ -33,7 +33,7 @@ $ cd nomes-ibge
 $ bundle install
 
 # Rode a aplicação no terminal com:
-$ ruby names_app.rb
+$ ruby nomes_do_brasil.rb
 
 ```
 

@@ -60,7 +60,7 @@ RSpec.describe 'Names App' do
     it 'Mostra dicas caso a busca não retorne resultado' do
       expect { frequencia_por_periodo('Magaalii') }.to output(include('O nome não foi encontrado',
                                                                       '====== Dicas de busca =======',
-                                                                      '- Não use caracteres especiais,' 
+                                                                      '- Não use caracteres especiais,',
                                                                       'apenas vírgula para separar os nomes',
                                                                       '- Não busque nomes compostos',
                                                                       '- Não use acentos')).to_stdout
