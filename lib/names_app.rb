@@ -52,7 +52,7 @@ end
 def listar_ufs
   rows = []
   UnidadeFederativa.all.each { |uf| rows << [uf.sigla, uf.nome] }
-  table = Terminal::Table.new title: 'Lista das Unidades Federativas', headings: %w[Sigla Nome], rows: rows
+  table = Terminal::Table.new title: 'Lista das Unidades Federativas', headings: %w[SIGLA NOME], rows: rows
   puts table
 end
 
@@ -67,7 +67,7 @@ def mostrar_nomes_por_uf(sigla)
     opcao_invalida
   else
     rows = []
-    uf.nomes_populares.each { |n| rows << [n['ranking'], n['nome'], n['frequencia']] }
+    uf.nomes_populares.each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
     table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}", headings: %w[RANKING NOME FREQUENCIA], rows: rows
     puts table
     nomes_por_sexo(uf.codigo)
@@ -110,9 +110,9 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
   municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_uf }
   if municipio
     rows = []
-    municipio.nomes_populares.each { |n| rows << [n['ranking'], n['nome']] }
+    municipio.nomes_populares.each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
     table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
-                                headings: %w[Ranking Nome], rows: rows
+                                headings: %w[RANKING NOME], rows: rows
     puts table
     nomes_por_sexo(municipio.codigo)
   else

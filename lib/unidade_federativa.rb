@@ -17,8 +17,8 @@ class UnidadeFederativa
 
     return [] if response.status == 400
 
-    json_response = JSON.parse(response.body)
-    json_response.map { |obj| UnidadeFederativa.new(obj['sigla'], obj['nome'], obj['id']) }
+    json_response = JSON.parse(response.body, symbolize_names: true)
+    json_response.map { |obj| UnidadeFederativa.new(obj[:sigla], obj[:nome], obj[:id]) }
   end
 
   def self.encontrar_uf(sigla)
@@ -27,7 +27,7 @@ class UnidadeFederativa
 
   def nomes_populares
     resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
-    json_resposta = JSON.parse(resposta.body)
-    json_resposta[0]['res']
+    json_resposta = JSON.parse(resposta.body, symbolize_names: true)
+    json_resposta[0][:res]
   end
 end

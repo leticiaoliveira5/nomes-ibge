@@ -1,4 +1,4 @@
-# :memo: Desafios Ruby - Nomes Populares do Brasil
+# :memo: Nomes Populares do Brasil
 Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nomes populares no Brasil, fazendo uso de dados do IBGE.
 
 <h3 align="center"> 
