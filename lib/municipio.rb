@@ -12,6 +12,12 @@ class Municipio
     @unidade_federativa = unidade_federativa
   end
 
+  def self.create(nome, codigo, unidade_federativa)
+    sql = "INSERT INTO Municipio (nome, codigo, unidade_federativa)
+           VALUES ('#{nome.gsub('\'', '`')}', '#{codigo}', '#{unidade_federativa}')"
+    $db.exec(sql)
+  end
+
   def self.all
     response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/municipios')
 

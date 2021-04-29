@@ -2,7 +2,7 @@
 
 require 'faraday'
 require 'json'
-require_relative 'db/sqlrunner'
+require_relative '../db/db'
 
 class UnidadeFederativa
   attr_reader :nome, :sigla, :codigo
@@ -13,10 +13,10 @@ class UnidadeFederativa
     @codigo = codigo
   end
 
-  def self.create(sigla:, nome:, codigo:)
-    sql = INSERT INTO unidade_federativa (`sigla`, `nome`, `codigo`) VALUES(:sigla, :nome, :codigo)
-    values = [@sigla, @nome, @codigo]
-    SQL.run(sql,values)
+  def self.create(sigla, nome, codigo)
+    sql = "INSERT INTO UnidadeFederativa (sigla, nome, codigo)
+           VALUES ('#{sigla}', '#{nome}', #{codigo})"
+    $db.exec(sql)
   end
 
   def self.all

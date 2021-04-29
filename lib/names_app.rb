@@ -5,6 +5,7 @@ require 'faraday'
 require 'json'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
+require_relative '../db/seed'
 
 # Variaveis
 
@@ -14,6 +15,16 @@ NOMES_POR_PERIODO = 3
 SAIR = 4
 
 # Metodos
+
+def carregar_dados
+  puts 'Conectando ao banco de dados .....'
+  DB.connect
+  puts 'Criando tabelas.....'
+  $db.exec(File.read('db/nomes.sql'))
+  puts 'Carregado os dados .........'
+  seed
+  puts 'Tudo pronto pra começar'
+end
 
 def bem_vindo
   puts
@@ -47,6 +58,7 @@ def tchau
   puts
   puts 'Obrigad@ por utilizar a aplicação de nomes do Brasil.'
   puts
+  DB.close
 end
 
 def listar_ufs

@@ -3,7 +3,7 @@
 
 require_relative 'lib/names_app'
 
-# carregar_dados
+carregar_dados
 bem_vindo
 opcao = escolher_opcao
 
