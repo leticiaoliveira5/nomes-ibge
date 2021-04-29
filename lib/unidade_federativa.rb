@@ -2,6 +2,7 @@
 
 require 'faraday'
 require 'json'
+require_relative 'db/sqlrunner'
 
 class UnidadeFederativa
   attr_reader :nome, :sigla, :codigo
@@ -12,11 +13,14 @@ class UnidadeFederativa
     @codigo = codigo
   end
 
+  def self.create(sigla:, nome:, codigo:)
+    sql = INSERT INTO unidade_federativa (`sigla`, `nome`, `codigo`) VALUES(:sigla, :nome, :codigo)
+    values = [@sigla, @nome, @codigo]
+    SQL.run(sql,values)
+  end
+
   def self.all
     response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-
-    return [] if response.status == 400
-
     json_response = JSON.parse(response.body, symbolize_names: true)
     json_response.map { |obj| UnidadeFederativa.new(obj[:sigla], obj[:nome], obj[:id]) }
   end
