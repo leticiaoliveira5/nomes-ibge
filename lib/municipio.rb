@@ -2,34 +2,10 @@
 
 require 'faraday'
 require 'json'
+require 'active_record'
 
-class Municipio
-  attr_reader :nome, :codigo, :unidade_federativa
-
-  def initialize(nome, codigo, unidade_federativa)
-    @nome = nome
-    @codigo = codigo
-    @unidade_federativa = unidade_federativa
-  end
-
-  def self.create(nome, codigo, unidade_federativa)
-    sql = "INSERT INTO Municipio (nome, codigo, unidade_federativa)
-           VALUES ('#{nome.gsub('\'', '`')}', '#{codigo}', '#{unidade_federativa}')"
-    $db.exec(sql)
-  end
-
-  def self.all
-    response = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/municipios')
-
-    return [] if response.status == 400
-
-    json_response = JSON.parse(response.body)
-    json_response.map do |obj|
-      Municipio.new(obj['nome'], obj['id'], obj['regiao-imediata']['regiao-intermediaria']['UF']['sigla'])
-    end
-  end
-
-  def nomes_populares
+class Municipio < ActiveRecord::Base
+  def nomes_populares(codigo)
     resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
     resposta_json = JSON.parse(resposta.body, symbolize_names: true)
     resposta_json[0][:res]

@@ -3,9 +3,9 @@
 require 'terminal-table'
 require 'faraday'
 require 'json'
+require 'active_record'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
-require_relative '../db/seed'
 
 # Variaveis
 
@@ -20,9 +20,9 @@ def carregar_dados
   puts 'Conectando ao banco de dados .....'
   DB.connect
   puts 'Criando tabelas.....'
-  $db.exec(File.read('db/nomes.sql'))
+  DB.create_tables
   puts 'Carregado os dados .........'
-  seed
+  DB.seed
   puts 'Tudo pronto pra começar'
 end
 
@@ -79,7 +79,7 @@ def mostrar_nomes_por_uf(sigla)
     opcao_invalida
   else
     rows = []
-    uf.nomes_populares.each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    uf.nomes_populares(uf.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
     table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
                                 headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
     puts table
@@ -123,7 +123,7 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
   municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_uf }
   if municipio
     rows = []
-    municipio.nomes_populares.each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    municipio.nomes_populares(municipio.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
     table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
                                 headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
     puts table

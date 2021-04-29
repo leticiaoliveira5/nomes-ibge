@@ -43,6 +43,7 @@ $ ruby nomes_do_brasil.rb
 - [Faraday](https://rubygems.org/gems/faraday?locale=pt-BR) - para lidar com requisições http
 - [Rspec](https://rubygems.org/gems/rspec?locale=pt-BR) - para testar o código
 - [Terminal-table](https://rubygems.org/gems/terminal-table/) - para criar as tabelas exibidas no terminal
+- [Active-Record](https://rubygems.org/gems/activerecord/versions/4.2.6?locale=pt-BR)
 
 ### :heavy_check_mark: Testando o código
 ```bash

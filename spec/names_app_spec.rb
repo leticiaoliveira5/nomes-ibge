@@ -19,6 +19,7 @@ RSpec.describe 'Names App' do
 
   context 'Opções' do
     it 'deve listar as UFs' do
+      DB.connect
       expect { listar_ufs }.to output(include('Lista das Unidades Federativas',
                                               'Acre', 'AC',
                                               'Amazonas', 'AM',
@@ -26,6 +27,7 @@ RSpec.describe 'Names App' do
                                               'Tocantins', 'TO')).to_stdout
     end
     it 'Lista as municipios da UF escolhida' do
+      DB.connect
       expect { listar_municipios('SE') }.to output(include('Municípios - Sergipe',
                                                            'Aquidabã',
                                                            'Areia Branca')).to_stdout

@@ -2,9 +2,9 @@
 
 source 'https://rubygems.org'
 
-gem 'activesupport'
+gem 'active_record'
 gem 'faraday'
-gem 'pg', '~> 0.18.4'
+gem 'pg', '~> 1.1'
 gem 'rspec'
 gem 'smarter_csv'
 gem 'terminal-table'
