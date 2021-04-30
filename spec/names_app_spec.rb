@@ -3,8 +3,6 @@
 require 'spec_helper'
 require 'names_app'
 DB.connect
-load 'db/schema.rb'
-load 'db/seed.rb'
 
 RSpec.describe 'Names App' do
   context 'Iniciando aplicação' do
@@ -36,26 +34,23 @@ RSpec.describe 'Names App' do
   end
 
   context 'Resultados' do
-    it 'Mostra os nomes mais frequentes na UF' do
+    it 'mostra os nomes mais frequentes na UF' do
       expect { mostrar_nomes_por_uf('AC') }.to output(include(' Nomes mais frequentes - Acre ',
                                                               '1', 'MARIA',
                                                               '2', 'JOSE')).to_stdout
     end
-    it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
-      stub(:gets) { 'SS' }
-      expect { escolher_uf }.to output(a_string_including('Opção Inválida')).to_stdout
+    it 'mostra erro caso a sigla recebida não corresponda a uma UF' do
+      expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
-    it 'Mostra nomes mais frequentes no Municipio' do
+    it 'mostra nomes mais frequentes no Municipio' do
       expect { mostrar_nomes_por_municipio('Tefé', 'AM') }.to output(include('Nomes mais frequentes - Tefé(AM)',
                                                                              '1', 'MARIA',
                                                                              '2', 'JOSE')).to_stdout
     end
-    it 'Mostra erro se município não existe' do
-      sigla = 'AM'
-      stub(:gets) { 'Cabo' }
-      expect { escolher_municipio(sigla) }.to output(a_string_including('Opção Inválida')).to_stdout
+    it 'mostra erro se município não existe' do
+      expect { mostrar_nomes_por_municipio('Cabo', 'AM') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
-    it 'Mostra frequência do nome buscado' do
+    it 'mostra frequência do nome buscado' do
       expect { frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
                                                                         '1930[', '254',
                                                                         '[1930,1940[', '582',

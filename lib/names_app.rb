@@ -17,16 +17,6 @@ SAIR = 4
 
 # Metodos
 
-def carregar_dados
-  puts 'Conectando ao banco de dados .....'
-  DB.connect
-  puts 'Criando tabelas.....'
-  DB.create_tables
-  puts 'Carregado os dados .........'
-  DB.seed
-  puts 'Tudo pronto pra começar'
-end
-
 def bem_vindo
   puts
   puts '======== Seja bem-vind@ ao sistema de nomes do Brasil ========'
@@ -71,22 +61,21 @@ end
 
 def escolher_uf
   print 'Digite a sigla da UF desejada: '
-  sigla = gets.chomp
-  if UnidadeFederativa.find_by(sigla: sigla)
-    mostrar_nomes_por_uf(sigla)
-  else
-    opcao_invalida
-  end
+  gets.chomp
 end
 
 def mostrar_nomes_por_uf(sigla)
   uf = UnidadeFederativa.find_by(sigla: sigla)
-  rows = []
-  nomes_populares(uf.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
-  table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
-                              headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
-  puts table
-  nomes_por_sexo(uf.codigo)
+  if uf
+    rows = []
+    nomes_populares(uf.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
+                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
+    puts table
+    nomes_por_sexo(uf.codigo)
+  else
+    opcao_invalida
+  end
 end
 
 def nomes_por_sexo(localidade)
@@ -114,24 +103,23 @@ def listar_municipios(sigla)
   end
 end
 
-def escolher_municipio(sigla_uf)
+def escolher_municipio(_sigla_uf)
   print 'Digite o nome do município: '
-  nome = gets.chomp
-  if Municipio.find_by(nome: nome, unidade_federativa: sigla_uf)
-    mostrar_nomes_por_municipio(nome, sigla_uf)
-  else
-    opcao_invalida
-  end
+  gets.chomp
 end
 
 def mostrar_nomes_por_municipio(nome, sigla_uf)
   municipio = Municipio.find_by(nome: nome, unidade_federativa: sigla_uf)
-  rows = []
-  nomes_populares(municipio.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
-  table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
-                              headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
-  puts table
-  nomes_por_sexo(municipio.codigo)
+  if municipio.nil?
+    opcao_invalida
+  else
+    rows = []
+    nomes_populares(municipio.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
+                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
+    puts table
+    nomes_por_sexo(municipio.codigo)
+  end
 end
 
 def busca_nomes

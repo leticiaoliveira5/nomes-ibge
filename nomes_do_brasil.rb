@@ -3,7 +3,7 @@
 
 require_relative 'lib/names_app'
 
-carregar_dados
+DB.connect
 bem_vindo
 opcao = escolher_opcao
 
@@ -17,7 +17,8 @@ loop do
     listar_ufs
     sigla_uf = escolher_uf
     listar_municipios(sigla_uf)
-    escolher_municipio(sigla_uf)
+    nome = escolher_municipio(sigla_uf)
+    mostrar_nomes_por_municipio(nome, sigla_uf)
   when NOMES_POR_PERIODO
     busca_nomes
   when SAIR
