@@ -3,7 +3,7 @@ set -e
 
 echo '=============== Instalando dependências ==============='
 bundle install
-echo '======= Importando dados para o banco de dados ========'
+echo '=============== Importando dados ==============='
 ruby db/seed.rb
 
 echo

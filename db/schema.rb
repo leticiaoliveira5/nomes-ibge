@@ -8,11 +8,13 @@ ActiveRecord::Schema.define do
     t.string :sigla, null: false, unique: true
     t.string :nome, null: false, unique: true
     t.integer :codigo, null: false, unique: true
+    t.integer :populacao, null: false
   end
 
   create_table(:municipios, force: true) do |t|
     t.string :nome, null: false
     t.integer :codigo, null: false, unique: true
     t.string :unidade_federativa, null: false, unique: true
+    t.integer :populacao, null: false
   end
 end
