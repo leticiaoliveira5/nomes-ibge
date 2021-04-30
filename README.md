@@ -11,7 +11,6 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 - [x] Ranking dos nomes mais comuns em uma determinada cidade
 - [x] Rankings dos nomes separados por gênero
 - [x] Frequência do uso de um nome ao longo dos anos
-- [ ] Carrega dados ao iniciar
 
 ### :warning: Pré-requisitos
 
@@ -33,6 +32,9 @@ $ cd nomes-ibge
 # Instale as dependências
 $ bundle install
 
+# Carregue as informações no banco de dados
+$ ruby db/seed.rb
+
 # Rode a aplicação no terminal com:
 $ ruby nomes_do_brasil.rb
 
@@ -43,7 +45,7 @@ $ ruby nomes_do_brasil.rb
 - [Faraday](https://rubygems.org/gems/faraday?locale=pt-BR) - para lidar com requisições http
 - [Rspec](https://rubygems.org/gems/rspec?locale=pt-BR) - para testar o código
 - [Terminal-table](https://rubygems.org/gems/terminal-table/) - para criar as tabelas exibidas no terminal
-- [Active-Record](https://rubygems.org/gems/activerecord/versions/4.2.6?locale=pt-BR)
+- [Active-Record](https://rubygems.org/gems/activerecord/versions/4.2.6?locale=pt-BR) - para facilitar o acesso aos dados do banco
 
 ### :heavy_check_mark: Testando o código
 ```bash
