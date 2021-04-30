@@ -6,6 +6,7 @@ require 'json'
 require 'active_record'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
+require_relative '../db/db'
 
 # Variaveis
 
@@ -74,12 +75,12 @@ def escolher_uf
 end
 
 def mostrar_nomes_por_uf(sigla)
-  uf = UnidadeFederativa.encontrar_uf(sigla)
+  uf = UnidadeFederativa.find_by(sigla: sigla)
   if uf.nil?
     opcao_invalida
   else
     rows = []
-    uf.nomes_populares(uf.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    nomes_populares(uf.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
     table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
                                 headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
     puts table
@@ -101,7 +102,7 @@ def nomes_por_sexo(localidade)
 end
 
 def listar_municipios(sigla)
-  uf = UnidadeFederativa.encontrar_uf(sigla)
+  uf = UnidadeFederativa.find_by(sigla: sigla)
   if uf.nil?
     opcao_invalida
   else
@@ -123,7 +124,7 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
   municipio = Municipio.all.find { |m| m.nome == nome && m.unidade_federativa == sigla_uf }
   if municipio
     rows = []
-    municipio.nomes_populares(municipio.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    nomes_populares(municipio.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
     table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
                                 headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
     puts table
@@ -182,4 +183,10 @@ def dicas_busca
   puts 'apenas vírgula para separar os nomes'
   puts '- Não busque nomes compostos'
   puts
+end
+
+def nomes_populares(codigo)
+  resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
+  json_resposta = JSON.parse(resposta.body, symbolize_names: true)
+  json_resposta[0][:res]
 end
