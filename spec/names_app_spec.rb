@@ -68,7 +68,7 @@ RSpec.describe 'Names App' do
                                                                       '- Não use acentos')).to_stdout
     end
     it 'Mostra tabelas com rakings de nomes por sexo na localidade' do
-      expect { nomes_por_sexo('33') }.to output(include('Nomes mais frequentes por sexo - F',
+      expect { nomes_por_sexo('33',17264943) }.to output(include('Nomes mais frequentes por sexo - F',
                                                         'MARIA', 'ANA', 'MARCIA', 'JULIANA', 'ADRIANA',
                                                         'Nomes mais frequentes por sexo - M',
                                                         'JOSE', 'JOAO', 'CARLOS', 'PAULO', 'ANTONIO')).to_stdout

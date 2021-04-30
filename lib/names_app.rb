@@ -75,21 +75,24 @@ def mostrar_nomes_por_uf(sigla)
     table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
                                 headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows
     puts table
-    nomes_por_sexo(uf.codigo)
+    nomes_por_sexo(uf.codigo, uf.populacao)
   else
     opcao_invalida
   end
 end
 
-def nomes_por_sexo(localidade)
+def nomes_por_sexo(localidade, populacao)
   sexos = %w[M F]
   sexos.each do |sexo|
     resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?sexo=#{sexo}&localidade=#{localidade}")
     resp_json = JSON.parse(resp.body, symbolize_names: true)
     rows = []
-    resp_json[0][:res].each { |hash| rows << [hash[:ranking], hash[:nome], hash[:frequencia]] }
+    resp_json[0][:res].each do |nome|
+      percentual = (nome[:frequencia].to_f / populacao) * 100
+      rows << [nome[:ranking], nome[:nome], nome[:frequencia], "#{percentual.round(2)}%"]
+    end
     table = Terminal::Table.new title: "Nomes mais frequentes por sexo - #{sexo}",
-                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
+                                headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows
     puts table
   end
 end
@@ -117,11 +120,14 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
     opcao_invalida
   else
     rows = []
-    nomes_populares(municipio.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    nomes_populares(municipio.codigo).each do |n|
+      percentual = (n[:frequencia].to_f / municipio.populacao) * 100
+      rows << [n[:ranking], n[:nome], n[:frequencia], "#{percentual.round(2)}%"]
+    end
     table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
-                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
+                                headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows
     puts table
-    nomes_por_sexo(municipio.codigo)
+    nomes_por_sexo(municipio.codigo, municipio.populacao)
   end
 end
 
