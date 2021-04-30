@@ -12,3 +12,6 @@ Style/ConditionalAssignment:
 
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context', 'feature', 'scenario', 'let']
+
+AllCops:
+  SuggestExtensions: false

@@ -3,7 +3,7 @@ require 'pg'
 
 class DB
   def self.connect
-    @db = ActiveRecord::Base.establish_connection(
+    ActiveRecord::Base.establish_connection(
       adapter: 'postgresql',
       database: 'ibge',
       username: 'leticia5',
@@ -17,7 +17,7 @@ class DB
   end
 
   def self.close
-    @db&.close
+    ActiveRecord::Base.connection.close
   end
 
   def self.seed

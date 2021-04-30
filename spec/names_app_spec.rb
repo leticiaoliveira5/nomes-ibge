@@ -42,7 +42,8 @@ RSpec.describe 'Names App' do
                                                               '2', 'JOSE')).to_stdout
     end
     it 'Mostra erro caso a sigla recebida não corresponda a uma UF' do
-      expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
+      stub(:gets) { 'SS' }
+      expect { escolher_uf }.to output(a_string_including('Opção Inválida')).to_stdout
     end
     it 'Mostra nomes mais frequentes no Municipio' do
       expect { mostrar_nomes_por_municipio('Tefé', 'AM') }.to output(include('Nomes mais frequentes - Tefé(AM)',
@@ -50,7 +51,9 @@ RSpec.describe 'Names App' do
                                                                              '2', 'JOSE')).to_stdout
     end
     it 'Mostra erro se município não existe' do
-      expect { mostrar_nomes_por_municipio('Cabo', 'AM') }.to output(a_string_including('Opção Inválida')).to_stdout
+      sigla = 'AM'
+      stub(:gets) { 'Cabo' }
+      expect { escolher_municipio(sigla) }.to output(a_string_including('Opção Inválida')).to_stdout
     end
     it 'Mostra frequência do nome buscado' do
       expect { frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',

@@ -8,4 +8,7 @@ Dir.glob(File.join(PROJECT_ROOT, 'lib', '*.rb')).each do |file|
 end
 
 RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.syntax = [:expect, :should]
+  end
 end
