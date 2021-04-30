@@ -35,9 +35,10 @@ RSpec.describe 'Names App' do
 
   context 'Resultados' do
     it 'mostra os nomes mais frequentes na UF' do
-      expect { mostrar_nomes_por_uf('AC') }.to output(include(' Nomes mais frequentes - Acre ',
-                                                              '1', 'MARIA',
-                                                              '2', 'JOSE')).to_stdout
+      expect { mostrar_nomes_por_uf('AC') }.to output(include('Nomes mais frequentes - Acre',
+                                                              'RANKING', 'NOME', 'FREQUÊNCIA', 'PERCENTUAL',
+                                                              '1', 'MARIA', '63172', '7.16%',
+                                                              '2', 'JOSE', '24599', '2.79%')).to_stdout
     end
     it 'mostra erro caso a sigla recebida não corresponda a uma UF' do
       expect { mostrar_nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout

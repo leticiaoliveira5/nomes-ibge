@@ -68,9 +68,12 @@ def mostrar_nomes_por_uf(sigla)
   uf = UnidadeFederativa.find_by(sigla: sigla)
   if uf
     rows = []
-    nomes_populares(uf.codigo).each { |n| rows << [n[:ranking], n[:nome], n[:frequencia]] }
+    nomes_populares(uf.codigo).each do |n|
+      percentual = (n[:frequencia].to_f / uf.populacao) * 100
+      rows << [n[:ranking], n[:nome], n[:frequencia], "#{percentual.round(2)}%"]
+    end
     table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
-                                headings: %w[RANKING NOME FREQUÊNCIA], rows: rows
+                                headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows
     puts table
     nomes_por_sexo(uf.codigo)
   else
