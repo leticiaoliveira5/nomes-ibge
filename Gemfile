@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'active_record'
+gem 'activerecord'
 gem 'faraday'
 gem 'pg', '~> 1.1'
 gem 'rspec'

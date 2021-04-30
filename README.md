@@ -29,11 +29,8 @@ $ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
 # Acesse a pasta do projeto no terminal/cmd
 $ cd nomes-ibge
 
-# Instale as dependências
-$ bundle install
-
-# Carregue as informações no banco de dados
-$ ruby db/seed.rb
+# Prepare o ambiente da aplicação:
+$ bin/setup
 
 # Rode a aplicação no terminal com:
 $ ruby nomes_do_brasil.rb

@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 set -e
 
+echo '=============== Instalando dependências ==============='
 bundle install
+echo '======= Importando dados para o banco de dados ========'
+ruby db/seed.rb
 
 echo
-echo '=============== Dependências Instaladas ==============='
