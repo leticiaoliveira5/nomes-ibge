@@ -60,18 +60,15 @@ RSpec.describe 'Names App' do
                                                                         '[1930,1940[', '749053')).to_stdout
     end
     it 'Mostra dicas caso a busca não retorne resultado' do
-      expect { frequencia_por_periodo('Magaalii') }.to output(include('O nome não foi encontrado',
-                                                                      '====== Dicas de busca =======',
-                                                                      '- Não use caracteres especiais,',
-                                                                      'apenas vírgula para separar os nomes',
-                                                                      '- Não busque nomes compostos',
-                                                                      '- Não use acentos')).to_stdout
+      expect do
+        frequencia_por_periodo('Magaalii')
+      end.to output(a_string_including('A busca não retornou nenhum resultado.')).to_stdout
     end
     it 'Mostra tabelas com rakings de nomes por sexo na localidade' do
-      expect { nomes_por_sexo('33',17264943) }.to output(include('Nomes mais frequentes por sexo - F',
-                                                        'MARIA', 'ANA', 'MARCIA', 'JULIANA', 'ADRIANA',
-                                                        'Nomes mais frequentes por sexo - M',
-                                                        'JOSE', 'JOAO', 'CARLOS', 'PAULO', 'ANTONIO')).to_stdout
+      expect { nomes_por_sexo('33', 17_264_943) }.to output(include('Nomes mais frequentes por sexo - F',
+                                                                    'MARIA', 'ANA', 'MARCIA', 'JULIANA', 'ADRIANA',
+                                                                    'Nomes mais frequentes por sexo - M',
+                                                                    'JOSE', 'JOAO', 'CARLOS', 'PAULO', 'ANTONIO')).to_stdout
     end
   end
 end

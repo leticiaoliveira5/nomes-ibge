@@ -18,20 +18,16 @@ SAIR = 4
 # Metodos
 
 def bem_vindo
-  puts
-  puts '======== Seja bem-vind@ ao sistema de nomes do Brasil ========'
-  puts
+  puts "\n======== Seja bem-vind@ ao sistema de nomes do Brasil ========\n\n"
   listar_opcoes
 end
 
 def listar_opcoes
-  puts 'Escolha a opção desejada:'
-  puts
+  puts "Escolha a opção desejada:\n\n"
   puts "[#{NOMES_POR_UF}] Ranking dos nomes mais comuns por Unidade Federativa (UF)"
   puts "[#{NOMES_POR_CIDADE}] Ranking dos nomes mais comuns por cidade"
   puts "[#{NOMES_POR_PERIODO}] Frequência do uso de um nome por período"
-  puts "[#{SAIR}] Sair"
-  puts
+  puts "[#{SAIR}] Sair\n\n"
 end
 
 def escolher_opcao
@@ -40,15 +36,24 @@ def escolher_opcao
 end
 
 def opcao_invalida
-  puts
-  puts '======= Opção Inválida ======='
-  puts
+  puts "\n======= Opção Inválida =======\n"
+end
+
+def sem_resultados
+  puts "\n A busca não retornou nenhum resultado. \n"
+end
+
+def dicas_busca
+  puts "\n  ===== Dicas de busca ===== "
+  puts '- Não use caracteres especiais, acentos ou espaços,'
+  puts '  apenas vírgula para separar os nomes.'
+  puts '- Esta API não retorna resultados ao consultar nomes compostos.'
+  puts '- A quantidade mínima de ocorrências para que seja divulgado os'
+  puts "  resultados é de 10 por município, 15 por Unidade da Federação e 20 no Brasil.\n\n"
 end
 
 def tchau
-  puts
-  puts 'Obrigad@ por utilizar a aplicação de nomes do Brasil.'
-  puts
+  puts "\nObrigad@ por utilizar a aplicação de nomes do Brasil.\n"
   DB.close
 end
 
@@ -61,6 +66,11 @@ end
 
 def escolher_uf
   print 'Digite a sigla da UF desejada: '
+  gets.chomp.upcase
+end
+
+def escolher_municipio(_sigla_uf)
+  print 'Digite o nome do município: '
   gets.chomp
 end
 
@@ -109,11 +119,6 @@ def listar_municipios(sigla)
   end
 end
 
-def escolher_municipio(_sigla_uf)
-  print 'Digite o nome do município: '
-  gets.chomp
-end
-
 def mostrar_nomes_por_municipio(nome, sigla_uf)
   municipio = Municipio.find_by(nome: nome, unidade_federativa: sigla_uf)
   if municipio.nil?
@@ -132,16 +137,20 @@ def mostrar_nomes_por_municipio(nome, sigla_uf)
 end
 
 def busca_nomes
+  dicas_busca
   print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
   busca = gets.chomp
+  busca = busca.downcase.tr('àáâãäçèéêëĕìíîïĭñòóôõöùúûüũýŷ', 'aaaaaceeeeeiiiiinooooouuuuuyy').gsub(
+    /[¨_-´`+=ºª§!@#$%^&*(),;.?":{}|<~>] /, ''
+  )
   frequencia_por_periodo(busca)
 end
 
 def frequencia_por_periodo(busca)
-  resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C').gsub(' ', '')}")
+  resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C')}")
   resp_json = JSON.parse(resp.body, symbolize_names: true)
-  if resp_json.empty?
-    dicas_busca
+  if resp_json.empty? || resp.status == 400
+    sem_resultados
   else
     mostrar_nomes_por_periodo(resp_json)
   end
@@ -168,18 +177,6 @@ def mostrar_nomes_por_periodo(resp_json)
   end
   table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período', headings: headings, rows: rows
   puts table
-end
-
-def dicas_busca
-  puts
-  puts 'O nome não foi encontrado.'
-  puts
-  puts '====== Dicas de busca ======='
-  puts '- Não use acentos'
-  puts '- Não use caracteres especiais,'
-  puts 'apenas vírgula para separar os nomes'
-  puts '- Não busque nomes compostos'
-  puts
 end
 
 def nomes_populares(codigo)
