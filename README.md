@@ -14,7 +14,7 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 
 ### :warning: Pré-requisitos
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: 
+Antes de começar, você vai precisar estar conectado à intrnet e ter instalado em sua máquina as seguintes ferramentas: 
 
 - [Ruby](https://www.ruby-lang.org/pt/documentation/installation/) versão: 2.7.2
 - [Git](https://git-scm.com) 
@@ -23,6 +23,13 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ### 🎲 Rodando o App no Terminal:
 
 ```bash
+# Crie o usuário e a database PostgreSQL
+$ sudo -u postgres createuser localuser --superuser
+$ sudo -u postgres createdb ibge --owner localuser
+$ sudo -u postgres psql
+postgres= $ ALTER USER localuser WITH password '1234';
+postgres= $ \q
+
 # Clone este repositório
 $ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
 
@@ -43,6 +50,7 @@ $ ruby nomes_do_brasil.rb
 - [Rspec](https://rubygems.org/gems/rspec?locale=pt-BR) - para testar o código
 - [Terminal-table](https://rubygems.org/gems/terminal-table/) - para criar as tabelas exibidas no terminal
 - [Active-Record](https://rubygems.org/gems/activerecord/versions/4.2.6?locale=pt-BR) - para facilitar o acesso aos dados do banco
+- [Smarter-CSV](smarter_csv)
 
 ### :heavy_check_mark: Testando o código
 ```bash

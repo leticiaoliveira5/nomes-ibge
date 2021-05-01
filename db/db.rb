@@ -6,7 +6,7 @@ class DB
     ActiveRecord::Base.establish_connection(
       adapter: 'postgresql',
       database: 'ibge',
-      username: 'leticia5',
+      username: 'localuser',
       password: '1234',
       host: 'localhost'
     )
