@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'names_app'
+require_relative '../lib/names_app'
+require_relative '../db/db'
+
 DB.connect
 
 RSpec.describe 'Names App' do
@@ -26,7 +28,7 @@ RSpec.describe 'Names App' do
                                               'São Paulo', 'SP',
                                               'Tocantins', 'TO')).to_stdout
     end
-    it 'Lista as municipios da UF escolhida' do
+    it 'lista as municipios da UF escolhida' do
       expect { listar_municipios('SE') }.to output(include('Municípios - Sergipe',
                                                            'Aquidabã',
                                                            'Areia Branca')).to_stdout
@@ -59,16 +61,18 @@ RSpec.describe 'Names App' do
                                                                         '1930[', '336477',
                                                                         '[1930,1940[', '749053')).to_stdout
     end
-    it 'Mostra dicas caso a busca não retorne resultado' do
+    it 'mostra dicas caso a busca não retorne resultado' do
       expect do
         frequencia_por_periodo('Magaalii')
       end.to output(a_string_including('A busca não retornou nenhum resultado.')).to_stdout
     end
-    it 'Mostra tabelas com rakings de nomes por sexo na localidade' do
+    it 'mostra tabelas com rakings de nomes por sexo na localidade' do
       expect { nomes_por_sexo('33', 17_264_943) }.to output(include('Nomes mais frequentes por sexo - F',
-                                                                    'MARIA', 'ANA', 'MARCIA', 'JULIANA', 'ADRIANA',
+                                                                    'MARIA', 'ANA', 'MARCIA',
+                                                                    'JULIANA', 'ADRIANA',
                                                                     'Nomes mais frequentes por sexo - M',
-                                                                    'JOSE', 'JOAO', 'CARLOS', 'PAULO', 'ANTONIO')).to_stdout
+                                                                    'JOSE', 'JOAO', 'CARLOS',
+                                                                    'PAULO', 'ANTONIO')).to_stdout
     end
   end
 end

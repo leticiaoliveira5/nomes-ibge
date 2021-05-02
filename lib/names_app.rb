@@ -1,12 +1,9 @@
-# frozen_string_literal: true
-
 require 'terminal-table'
 require 'faraday'
 require 'json'
 require 'active_record'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
-require_relative '../db/db'
 
 # Variaveis
 
@@ -54,7 +51,6 @@ end
 
 def tchau
   puts "\nObrigad@ por utilizar a aplicação de nomes do Brasil.\n"
-  DB.close
 end
 
 def listar_ufs
@@ -69,9 +65,10 @@ def escolher_uf
   gets.chomp.upcase
 end
 
-def escolher_municipio(_sigla_uf)
+def escolher_municipio(sigla_uf)
   print 'Digite o nome do município: '
-  gets.chomp
+  nome = gets.chomp
+  mostrar_nomes_por_municipio(nome, sigla_uf)
 end
 
 def mostrar_nomes_por_uf(sigla)
@@ -139,8 +136,8 @@ end
 def busca_nomes
   dicas_busca
   print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
-  busca = gets.chomp
-  busca = busca.downcase.tr('àáâãäçèéêëĕìíîïĭñòóôõöùúûüũýŷ', 'aaaaaceeeeeiiiiinooooouuuuuyy').gsub(
+  input = gets.chomp
+  busca = input.downcase.tr('àáâãäçèéêëĕìíîïĭñòóôõöùúûüũýŷ', 'aaaaaceeeeeiiiiinooooouuuuuyy').gsub(
     /[¨_-´`+=ºª§!@#$%^&*(),;.?":{}|<~>] /, ''
   )
   frequencia_por_periodo(busca)

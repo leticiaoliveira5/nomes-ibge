@@ -8,19 +8,12 @@ class DB
       database: 'ibge',
       username: 'localuser',
       password: '1234',
-      host: 'localhost'
+      host: 'localhost',
+      port: 5432
     )
-  end
-
-  def self.create_tables
-    load 'db/schema.rb'
   end
 
   def self.close
     ActiveRecord::Base.connection.close
-  end
-
-  def self.seed
-    load 'db/seed.rb'
   end
 end

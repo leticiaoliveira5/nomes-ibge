@@ -24,11 +24,12 @@ Antes de começar, você vai precisar estar conectado à intrnet e ter instalado
 
 ```bash
 # Crie o usuário e a database PostgreSQL
-$ sudo -u postgres createuser localuser --superuser
-$ sudo -u postgres createdb ibge --owner localuser
 $ sudo -u postgres psql
-postgres= $ ALTER USER localuser WITH password '1234';
-postgres= $ \q
+postgres=#
+$ CREATE USER localuser 
+$ ALTER USER localuser WITH password '1234' --superuser;
+$ CREATE DATABASE ibge --owner localuser
+$ \q
 
 # Clone este repositório
 $ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
