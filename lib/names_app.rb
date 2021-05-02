@@ -109,10 +109,11 @@ def listar_municipios(sigla)
   if uf.nil?
     opcao_invalida
   else
-    puts "======== Municípios - #{uf.nome} ========"
-    puts
     municipios = Municipio.where(unidade_federativa: sigla)
-    municipios.each { |municipio| puts municipio.nome }
+    rows = []
+    municipios.each { |municipio| rows << [municipio.nome] }
+    table = Terminal::Table.new title: "Municípios - #{uf.nome}", rows: rows
+    puts table
   end
 end
 
