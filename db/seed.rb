@@ -17,7 +17,8 @@ ufs_json = JSON.parse(ufs.body, symbolize_names: true)
 ufs_json.each do |obj|
   resultado = csv_to_hash.find { |hash| hash['Cód.'].to_i == obj[:id] }
   UnidadeFederativa.create(sigla: obj[:sigla],
-                           nome: obj[:nome], codigo: obj[:id],
+                           nome: obj[:nome],
+                           codigo: obj[:id],
                            populacao: resultado['População Residente - 2019'].to_i)
 end
 
@@ -25,7 +26,9 @@ municipios = Faraday.get('https://servicodados.ibge.gov.br/api/v1/localidades/mu
 municipios_json = JSON.parse(municipios.body)
 municipios_json.each do |obj|
   res = csv_to_hash.find { |hash| hash['Cód.'].to_i == obj['id'] }
-  Municipio.create(nome: obj['nome'], codigo: obj['id'],
-                   unidade_federativa: obj['regiao-imediata']['regiao-intermediaria']['UF']['sigla'],
+  Municipio.create(nome: obj['nome'],
+                   codigo: obj['id'],
+                   sigla_uf: obj['regiao-imediata']['regiao-intermediaria']['UF']['sigla'],
+                   unidade_federativa: UnidadeFederativa.find_by(sigla: obj['regiao-imediata']['regiao-intermediaria']['UF']['sigla']),
                    populacao: res['População Residente - 2019'].to_i)
 end

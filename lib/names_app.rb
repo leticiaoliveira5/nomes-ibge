@@ -104,12 +104,12 @@ def nomes_por_sexo(localidade, populacao)
   end
 end
 
-def listar_municipios(sigla)
-  uf = UnidadeFederativa.find_by(sigla: sigla)
+def listar_municipios(sigla_uf)
+  uf = UnidadeFederativa.find_by(sigla: sigla_uf)
   if uf.nil?
     opcao_invalida
   else
-    municipios = Municipio.where(unidade_federativa: sigla)
+    municipios = Municipio.where(unidade_federativa: uf)
     rows = []
     municipios.each { |municipio| rows << [municipio.nome] }
     table = Terminal::Table.new title: "Municípios - #{uf.nome}", rows: rows
@@ -118,7 +118,7 @@ def listar_municipios(sigla)
 end
 
 def mostrar_nomes_por_municipio(nome, sigla_uf)
-  municipio = Municipio.find_by(nome: nome, unidade_federativa: sigla_uf)
+  municipio = Municipio.find_by(nome: nome, sigla_uf: sigla_uf)
   if municipio.nil?
     opcao_invalida
   else

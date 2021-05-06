@@ -12,9 +12,10 @@ ActiveRecord::Schema.define do
   end
 
   create_table(:municipios, force: true) do |t|
+    t.belongs_to :unidade_federativa, index: true
     t.string :nome, null: false
+    t.string :sigla_uf, null: false
     t.integer :codigo, null: false, unique: true
-    t.string :unidade_federativa, null: false, unique: true
     t.integer :populacao, null: false
   end
 end
