@@ -42,7 +42,6 @@ GEM
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
     ruby2_keywords (0.0.4)
-    smarter_csv (1.2.8)
     terminal-table (3.0.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     tzinfo (2.0.4)
@@ -58,7 +57,6 @@ DEPENDENCIES
   faraday
   pg (~> 1.1)
   rspec
-  smarter_csv
   terminal-table
 
 BUNDLED WITH
