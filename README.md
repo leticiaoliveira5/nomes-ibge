@@ -1,10 +1,6 @@
 # :memo: Nomes Populares do Brasil
 Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nomes populares no Brasil, fazendo uso de dados do IBGE.
 
-<h3 align="center"> 
-	🚧  Em construção...  🚧
-</h3>
-
 ### :white_check_mark: Funcionalidades
 
 - [x] Ranking dos nomes mais comuns em uma determinada Unidade Federativa (UF)
@@ -37,7 +33,7 @@ $ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
 # Acesse a pasta do projeto no terminal/cmd
 $ cd nomes-ibge
 
-# Prepare o ambiente da aplicação:
+# Instala dependências e carrega os dados:
 $ bin/setup
 
 # Rode a aplicação no terminal com:
