@@ -29,7 +29,7 @@ RSpec.describe 'Names App' do
                                               'Tocantins', 'TO')).to_stdout
     end
     it 'lista as municipios da UF escolhida' do
-      expect { listar_municipios('SE') }.to output(include('Municípios - Sergipe',
+      expect { listar_municipios('SE') }.to output(include('Municípios - SE',
                                                            'Aquidabã',
                                                            'Areia Branca')).to_stdout
     end
