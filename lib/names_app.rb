@@ -67,7 +67,7 @@ end
 
 def escolher_municipio(sigla_uf)
   print 'Digite o nome do município: '
-  nome_municipio = gets.chomp
+  nome_municipio = gets.chomp.capitalize
   mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
 end
 
@@ -75,7 +75,7 @@ def mostrar_nomes_por_uf(sigla)
   uf = UnidadeFederativa.find_by(sigla: sigla)
   if uf
     rows = []
-    uf.nomes_populares.each do |nome|
+    nomes_populares(uf.codigo).each do |nome|
       percentual = (nome[:frequencia].to_f / uf.populacao) * 100
       rows << [nome[:ranking], nome[:nome], nome[:frequencia], "#{percentual.round(2)}%"]
     end
@@ -122,7 +122,7 @@ def mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
     opcao_invalida
   else
     rows = []
-    municipio.nomes_populares.each do |nome|
+    nomes_populares(municipio.codigo).each do |nome|
       percentual = (nome[:frequencia].to_f / municipio.populacao) * 100
       rows << [nome[:ranking], nome[:nome], nome[:frequencia], "#{percentual.round(2)}%"]
     end
@@ -155,23 +155,25 @@ end
 
 def mostrar_nomes_por_periodo(resp_json)
   rows = []
-  headings = ['PERÍODO']
-  periodos = []
-  resp_json.each do |hash|
-    headings << hash[:nome]
-    hash[:res].map { |h| periodos << h[:periodo] }.flatten
-  end
-  periodos = periodos.uniq.sort
-  periodos.each do |periodo|
-    row = []
-    row << periodo
+  nomes = []
+  periodos = resp_json.map { |hash| hash[:res].map { |item| item[:periodo] } }.flatten
+  periodos.uniq.sort.each do |periodo|
+    row = [periodo]
     resp_json.each do |hash|
-      p = hash[:res].find { |a| a[:periodo] == periodo }
+      nomes << hash[:nome]
+      p = hash[:res].find { |item| item[:periodo] == periodo }
       p ? row << p[:frequencia] : row << '-'
       # {condition} ? {if-code-block} : {else-code-block}
     end
     rows << row
   end
-  table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período', headings: headings, rows: rows
+  table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período',
+                              headings: ['PERÍODO'] + nomes.uniq.sort, rows: rows
   puts table
+end
+
+def nomes_populares(codigo)
+  resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
+  json_resposta = JSON.parse(resposta.body, symbolize_names: true)
+  json_resposta[0][:res]
 end
