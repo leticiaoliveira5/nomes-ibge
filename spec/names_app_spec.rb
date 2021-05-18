@@ -55,16 +55,16 @@ RSpec.describe 'Names App' do
       expect { mostrar_nomes_por_municipio('Cabo', 'AM') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
     it 'mostra frequência do nome buscado' do
-      expect { frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
-                                                                        '1930[', '254',
-                                                                        '[1930,1940[', '582',
-                                                                        'MARIA',
-                                                                        '1930[', '336477',
-                                                                        '[1930,1940[', '749053')).to_stdout
+      expect { mostra_frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
+                                                                               '1930[', '254',
+                                                                               '[1930,1940[', '582',
+                                                                               'MARIA',
+                                                                               '1930[', '336477',
+                                                                               '[1930,1940[', '749053')).to_stdout
     end
     it 'mostra dicas caso a busca não retorne resultado' do
       expect do
-        frequencia_por_periodo('Magaalii')
+        mostra_frequencia_por_periodo('Magaalii')
       end.to output(a_string_including('A busca não retornou nenhum resultado.')).to_stdout
     end
     it 'mostra tabelas com rakings de nomes por sexo na localidade' do
