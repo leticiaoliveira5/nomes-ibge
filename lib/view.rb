@@ -1,3 +1,4 @@
+require 'terminal-table'
 require_relative 'pesquisa'
 
 NOMES_POR_UF = 1
@@ -59,6 +60,11 @@ class View
       /[¨_-´`+=ºª§!@#$%^&*(),;.?":{}|<~>] /, ''
     )
     Pesquisa.frequencia_por_periodo(busca)
+  end
+
+  def self.monta_tabela(title:, headings:, rows:)
+    tabela = Terminal::Table.new title: title, headings: headings, rows: rows
+    puts tabela
   end
 
   def self.loop(opcao)
