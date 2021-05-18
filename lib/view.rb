@@ -1,3 +1,5 @@
+require_relative 'names_app'
+
 NOMES_POR_UF = 1
 NOMES_POR_CIDADE = 2
 NOMES_POR_PERIODO = 3
@@ -19,7 +21,8 @@ class View
 
   def self.escolher_opcao
     print 'Digite o número da opção desejada: '
-    gets.to_i
+    opcao = gets.to_i
+    loop(opcao)
   end
 
   def self.opcao_invalida
@@ -46,5 +49,40 @@ class View
   def self.escolher_uf
     print 'Digite a sigla da UF desejada: '
     gets.chomp.upcase
+  end
+
+  def self.busca_nomes
+    dicas_busca
+    print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
+    input = gets.chomp
+    busca = input.downcase.tr('àáâãäçèéêëĕìíîïĭñòóôõöùúûüũýŷ', 'aaaaaceeeeeiiiiinooooouuuuuyy').gsub(
+      /[¨_-´`+=ºª§!@#$%^&*(),;.?":{}|<~>] /, ''
+    )
+    mostra_frequencia_por_periodo(busca)
+  end
+
+  def self.loop(opcao)
+    case opcao
+    when NOMES_POR_UF
+      listar_ufs
+      sigla_uf = escolher_uf
+      mostrar_nomes_por_uf(sigla_uf)
+    when NOMES_POR_CIDADE
+      listar_ufs
+      sigla_uf = escolher_uf
+      listar_municipios(sigla_uf)
+      escolher_municipio(sigla_uf)
+    when NOMES_POR_PERIODO
+      busca_nomes
+    when SAIR
+      tchau
+    else
+      opcao_invalida
+    end
+
+    return if opcao == SAIR
+
+    listar_opcoes
+    escolher_opcao
   end
 end

@@ -76,17 +76,7 @@ def mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
   end
 end
 
-def busca_nomes
-  View.dicas_busca
-  print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
-  input = gets.chomp
-  busca = input.downcase.tr('àáâãäçèéêëĕìíîïĭñòóôõöùúûüũýŷ', 'aaaaaceeeeeiiiiinooooouuuuuyy').gsub(
-    /[¨_-´`+=ºª§!@#$%^&*(),;.?":{}|<~>] /, ''
-  )
-  frequencia_por_periodo(busca)
-end
-
-def frequencia_por_periodo(busca)
+def mostra_frequencia_por_periodo(busca)
   resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C')}")
   resp_json = JSON.parse(resp.body, symbolize_names: true)
   if resp_json.empty? || resp.status == 400
