@@ -4,64 +4,12 @@ require 'active_record'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
 require_relative 'tabela'
-
-# Variaveis
-
-NOMES_POR_UF = 1
-NOMES_POR_CIDADE = 2
-NOMES_POR_PERIODO = 3
-SAIR = 4
-
-# Metodos
-
-def bem_vindo
-  puts "\n======== Seja bem-vind@ ao sistema de nomes do Brasil ========\n\n"
-  listar_opcoes
-end
-
-def listar_opcoes
-  puts "Escolha a opção desejada:\n\n"
-  puts "[#{NOMES_POR_UF}] Ranking dos nomes mais comuns por Unidade Federativa (UF)"
-  puts "[#{NOMES_POR_CIDADE}] Ranking dos nomes mais comuns por cidade"
-  puts "[#{NOMES_POR_PERIODO}] Frequência do uso de um nome por período"
-  puts "[#{SAIR}] Sair\n\n"
-end
-
-def escolher_opcao
-  print 'Digite o número da opção desejada: '
-  gets.to_i
-end
-
-def opcao_invalida
-  puts "\n======= Opção Inválida =======\n"
-end
-
-def sem_resultados
-  puts "\n A busca não retornou nenhum resultado. \n"
-end
-
-def dicas_busca
-  puts "\n  ===== Dicas de busca ===== "
-  puts '- Não use caracteres especiais, acentos ou espaços,'
-  puts '  apenas vírgula para separar os nomes.'
-  puts '- Esta API não retorna resultados ao consultar nomes compostos.'
-  puts '- A quantidade mínima de ocorrências para que seja divulgado os'
-  puts "  resultados é de 10 por município, 15 por Unidade da Federação e 20 no Brasil.\n\n"
-end
-
-def tchau
-  puts "\nObrigad@ por utilizar a aplicação de nomes do Brasil.\n"
-end
+require_relative 'view'
 
 def listar_ufs
   rows = []
   UnidadeFederativa.all.each { |uf| rows << [uf.sigla, uf.nome] }
   Tabela.new(title: 'Lista das Unidades Federativas', headings: %w[SIGLA NOME], rows: rows)
-end
-
-def escolher_uf
-  print 'Digite a sigla da UF desejada: '
-  gets.chomp.upcase
 end
 
 def escolher_municipio(sigla_uf)
@@ -82,7 +30,7 @@ def mostrar_nomes_por_uf(sigla)
                rows: rows)
     nomes_por_sexo(uf.codigo, uf.populacao)
   else
-    opcao_invalida
+    View.opcao_invalida
   end
 end
 
@@ -104,7 +52,7 @@ end
 def listar_municipios(sigla_uf)
   municipios = Municipio.where(sigla_uf: sigla_uf)
   if municipios.nil?
-    opcao_invalida
+    View.opcao_invalida
   else
     rows = []
     municipios.each { |municipio| rows << [municipio.nome] }
@@ -115,7 +63,7 @@ end
 def mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
   municipio = Municipio.find_by(nome: nome_municipio, sigla_uf: sigla_uf)
   if municipio.nil?
-    opcao_invalida
+    View.opcao_invalida
   else
     rows = []
     nomes_populares(municipio.codigo).each do |nome|
@@ -129,7 +77,7 @@ def mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
 end
 
 def busca_nomes
-  dicas_busca
+  View.dicas_busca
   print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
   input = gets.chomp
   busca = input.downcase.tr('àáâãäçèéêëĕìíîïĭñòóôõöùúûüũýŷ', 'aaaaaceeeeeiiiiinooooouuuuuyy').gsub(
@@ -142,7 +90,7 @@ def frequencia_por_periodo(busca)
   resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C')}")
   resp_json = JSON.parse(resp.body, symbolize_names: true)
   if resp_json.empty? || resp.status == 400
-    sem_resultados
+    View.sem_resultados
   else
     mostrar_nomes_por_periodo(resp_json)
   end
