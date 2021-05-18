@@ -1,9 +1,9 @@
-require 'terminal-table'
 require 'faraday'
 require 'json'
 require 'active_record'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
+require_relative 'tabela'
 
 # Variaveis
 
@@ -56,8 +56,7 @@ end
 def listar_ufs
   rows = []
   UnidadeFederativa.all.each { |uf| rows << [uf.sigla, uf.nome] }
-  table = Terminal::Table.new title: 'Lista das Unidades Federativas', headings: %w[SIGLA NOME], rows: rows
-  puts table
+  Tabela.new(title: 'Lista das Unidades Federativas', headings: %w[SIGLA NOME], rows: rows)
 end
 
 def escolher_uf
@@ -79,9 +78,8 @@ def mostrar_nomes_por_uf(sigla)
       percentual = (nome[:frequencia].to_f / uf.populacao) * 100
       rows << [nome[:ranking], nome[:nome], nome[:frequencia], "#{percentual.round(2)}%"]
     end
-    table = Terminal::Table.new title: "Nomes mais frequentes - #{uf.nome}",
-                                headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows
-    puts table
+    Tabela.new(title: "Nomes mais frequentes - #{uf.nome}", headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL],
+               rows: rows)
     nomes_por_sexo(uf.codigo, uf.populacao)
   else
     opcao_invalida
@@ -98,9 +96,8 @@ def nomes_por_sexo(localidade, populacao)
       percentual = (nome[:frequencia].to_f / populacao) * 100
       rows << [nome[:ranking], nome[:nome], nome[:frequencia], "#{percentual.round(2)}%"]
     end
-    table = Terminal::Table.new title: "Nomes mais frequentes por sexo - #{sexo}",
-                                headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows
-    puts table
+    Tabela.new(title: "Nomes mais frequentes por sexo - #{sexo}",
+               headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
   end
 end
 
@@ -111,8 +108,7 @@ def listar_municipios(sigla_uf)
   else
     rows = []
     municipios.each { |municipio| rows << [municipio.nome] }
-    table = Terminal::Table.new title: "Municípios - #{sigla_uf}", rows: rows
-    puts table
+    Tabela.new(title: "Municípios - #{sigla_uf}", headings: [], rows: rows)
   end
 end
 
@@ -126,9 +122,8 @@ def mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
       percentual = (nome[:frequencia].to_f / municipio.populacao) * 100
       rows << [nome[:ranking], nome[:nome], nome[:frequencia], "#{percentual.round(2)}%"]
     end
-    table = Terminal::Table.new title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
-                                headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows
-    puts table
+    Tabela.new(title: "Nomes mais frequentes - #{municipio.nome}(#{sigla_uf})",
+               headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
     nomes_por_sexo(municipio.codigo, municipio.populacao)
   end
 end
@@ -167,9 +162,8 @@ def mostrar_nomes_por_periodo(resp_json)
     end
     rows << row
   end
-  table = Terminal::Table.new title: 'Frequência do(s) nome(s) por período',
-                              headings: ['PERÍODO'] + nomes.uniq.sort, rows: rows
-  puts table
+  Tabela.new(title: 'Frequência do(s) nome(s) por período',
+             headings: ['PERÍODO'] + nomes.uniq.sort, rows: rows)
 end
 
 def nomes_populares(codigo)
