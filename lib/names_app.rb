@@ -1,10 +1,9 @@
-require 'faraday'
-require 'json'
 require 'active_record'
 require_relative 'unidade_federativa'
 require_relative 'municipio'
 require_relative 'tabela'
 require_relative 'view'
+require_relative 'api'
 
 def listar_ufs
   rows = []
@@ -37,10 +36,9 @@ end
 def nomes_por_sexo(localidade, populacao)
   sexos = %w[M F]
   sexos.each do |sexo|
-    resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?sexo=#{sexo}&localidade=#{localidade}")
-    resp_json = JSON.parse(resp.body, symbolize_names: true)
+    response = Api.nomes("ranking?sexo=#{sexo}&localidade=#{localidade}")
     rows = []
-    resp_json[0][:res].each do |nome|
+    response[0][:res].each do |nome|
       percentual = (nome[:frequencia].to_f / populacao) * 100
       rows << [nome[:ranking], nome[:nome], nome[:frequencia], "#{percentual.round(2)}%"]
     end
@@ -77,12 +75,11 @@ def mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
 end
 
 def mostra_frequencia_por_periodo(busca)
-  resp = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/#{busca.gsub(',', '%7C')}")
-  resp_json = JSON.parse(resp.body, symbolize_names: true)
-  if resp_json.empty? || resp.status == 400
+  response = Api.nomes(busca.gsub(',', '%7C').to_s)
+  if response.empty?
     View.sem_resultados
   else
-    mostrar_nomes_por_periodo(resp_json)
+    mostrar_nomes_por_periodo(response)
   end
 end
 
@@ -105,7 +102,6 @@ def mostrar_nomes_por_periodo(resp_json)
 end
 
 def nomes_populares(codigo)
-  resposta = Faraday.get("https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=#{codigo}")
-  json_resposta = JSON.parse(resposta.body, symbolize_names: true)
-  json_resposta[0][:res]
+  resposta = Api.nomes("ranking?localidade=#{codigo}")
+  resposta[0][:res]
 end
