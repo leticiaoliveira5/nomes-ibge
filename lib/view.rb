@@ -1,4 +1,4 @@
-require_relative 'names_app'
+require_relative 'pesquisa'
 
 NOMES_POR_UF = 1
 NOMES_POR_CIDADE = 2
@@ -58,20 +58,20 @@ class View
     busca = input.downcase.tr('àáâãäçèéêëĕìíîïĭñòóôõöùúûüũýŷ', 'aaaaaceeeeeiiiiinooooouuuuuyy').gsub(
       /[¨_-´`+=ºª§!@#$%^&*(),;.?":{}|<~>] /, ''
     )
-    mostra_frequencia_por_periodo(busca)
+    Pesquisa.frequencia_por_periodo(busca)
   end
 
   def self.loop(opcao)
     case opcao
     when NOMES_POR_UF
-      listar_ufs
+      Pesquisa.listar_ufs
       sigla_uf = escolher_uf
-      mostrar_nomes_por_uf(sigla_uf)
+      Pesquisa.mostrar_nomes_por_uf(sigla_uf)
     when NOMES_POR_CIDADE
-      listar_ufs
+      Pesquisa.listar_ufs
       sigla_uf = escolher_uf
-      listar_municipios(sigla_uf)
-      escolher_municipio(sigla_uf)
+      Pesquisa.listar_municipios(sigla_uf)
+      Pesquisa.escolher_municipio(sigla_uf)
     when NOMES_POR_PERIODO
       busca_nomes
     when SAIR

@@ -6,16 +6,20 @@ API_LOCALIDADES_URL = 'https://servicodados.ibge.gov.br/api/v1/localidades/'.fre
 
 class Api
   def self.nomes(url)
-    resp = Faraday.get(API_NOMES_URL + url)
-    return [] if resp.status == 400
+    response = Faraday.get(API_NOMES_URL + url)
+    return [] if response.status == 400
 
-    JSON.parse(resp.body, symbolize_names: true)
+    parser(response)
   end
 
   def self.localidades(url)
-    resp = Faraday.get(API_LOCALIDADES_URL + url)
-    return [] if resp.status == 400
+    response = Faraday.get(API_LOCALIDADES_URL + url)
+    return [] if response.status == 400
 
-    JSON.parse(resp.body, symbolize_names: true)
+    parser(response)
+  end
+
+  def self.parser(response)
+    JSON.parse(response.body, symbolize_names: true)
   end
 end
