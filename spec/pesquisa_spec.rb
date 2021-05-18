@@ -7,20 +7,7 @@ require_relative '../db/db'
 
 DB.connect
 
-RSpec.describe 'Names App' do
-  context 'Iniciando aplicação' do
-    it 'deve mostrar a mensagem de bem-vindo' do
-      expect { View.bem_vindo }.to output(a_string_including('Seja bem-vind@ ao sistema de nomes do Brasil')).to_stdout
-    end
-    it 'deve mostrar opções de ação' do
-      expect { View.listar_opcoes }.to output(include('Escolha a opção desejada:',
-                                                      '[1] Ranking dos nomes mais comuns por Unidade Federativa (UF)',
-                                                      '[2] Ranking dos nomes mais comuns por cidade',
-                                                      '[3] Frequência do uso de um nome por período',
-                                                      '[4] Sair')).to_stdout
-    end
-  end
-
+RSpec.describe Pesquisa do
   context 'Opções' do
     it 'deve listar as UFs' do
       expect { Pesquisa.listar_ufs }.to output(include('Lista das Unidades Federativas',

@@ -11,12 +11,6 @@ class Pesquisa
     View.monta_tabela(title: 'Lista das Unidades Federativas', headings: %w[SIGLA NOME], rows: rows)
   end
 
-  def self.escolher_municipio(sigla_uf)
-    print 'Digite o nome do município: '
-    nome_municipio = gets.chomp.capitalize
-    mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
-  end
-
   def self.mostrar_nomes_por_uf(sigla)
     uf = UnidadeFederativa.find_by(sigla: sigla)
     if uf

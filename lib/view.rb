@@ -48,8 +48,19 @@ class View
   end
 
   def self.escolher_uf
+    Pesquisa.listar_ufs
     print 'Digite a sigla da UF desejada: '
-    gets.chomp.upcase
+    sigla_uf = gets.chomp.upcase
+    Pesquisa.mostrar_nomes_por_uf(sigla_uf)
+  end
+
+  def self.escolher_municipio
+    Pesquisa.listar_ufs
+    sigla_uf = gets.chomp
+    Pesquisa.listar_municipios(sigla_uf)
+    print 'Digite o nome do município: '
+    nome_municipio = gets.chomp.capitalize
+    Pesquisa.mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
   end
 
   def self.busca_nomes
@@ -70,14 +81,9 @@ class View
   def self.loop(opcao)
     case opcao
     when NOMES_POR_UF
-      Pesquisa.listar_ufs
-      sigla_uf = escolher_uf
-      Pesquisa.mostrar_nomes_por_uf(sigla_uf)
+      escolher_uf
     when NOMES_POR_CIDADE
-      Pesquisa.listar_ufs
-      sigla_uf = escolher_uf
-      Pesquisa.listar_municipios(sigla_uf)
-      Pesquisa.escolher_municipio(sigla_uf)
+      escolher_municipio
     when NOMES_POR_PERIODO
       busca_nomes
     when SAIR
