@@ -19,6 +19,9 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 15
 
+Style/OneLineConditional:
+  Enabled: false  
+  
 AllCops:
   SuggestExtensions: false
   NewCops: enable

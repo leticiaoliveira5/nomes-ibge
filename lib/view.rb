@@ -30,10 +30,6 @@ class View
     puts "\n======= Opção Inválida =======\n"
   end
 
-  def self.sem_resultados
-    puts "\n A busca não retornou nenhum resultado. \n"
-  end
-
   def self.dicas_busca
     puts "\n  ===== Dicas de busca ===== "
     puts '- Não use caracteres especiais, acentos ou espaços,'
@@ -51,16 +47,17 @@ class View
     Pesquisa.listar_ufs
     print 'Digite a sigla da UF desejada: '
     sigla_uf = gets.chomp.upcase
-    Pesquisa.mostrar_nomes_por_uf(sigla_uf)
+    Pesquisa.nomes_por_uf(sigla_uf)
   end
 
   def self.escolher_municipio
     Pesquisa.listar_ufs
-    sigla_uf = gets.chomp
+    print 'Digite a sigla da UF desejada: '
+    sigla_uf = gets.chomp.upcase
     Pesquisa.listar_municipios(sigla_uf)
     print 'Digite o nome do município: '
     nome_municipio = gets.chomp.capitalize
-    Pesquisa.mostrar_nomes_por_municipio(nome_municipio, sigla_uf)
+    Pesquisa.nomes_por_municipio(nome_municipio, sigla_uf)
   end
 
   def self.busca_nomes
