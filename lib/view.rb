@@ -18,11 +18,12 @@ class View
     puts "[#{NOMES_POR_CIDADE}] Ranking dos nomes mais comuns por cidade"
     puts "[#{NOMES_POR_PERIODO}] Frequência do uso de um nome por período"
     puts "[#{SAIR}] Sair\n\n"
+    escolher_opcao
   end
 
   def self.escolher_opcao
     print 'Digite o número da opção desejada: '
-    opcao = gets.to_i
+    opcao = $stdin.gets.to_i
     loop(opcao)
   end
 
@@ -92,6 +93,5 @@ class View
     return if opcao == SAIR
 
     listar_opcoes
-    escolher_opcao
   end
 end

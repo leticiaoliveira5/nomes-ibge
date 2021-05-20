@@ -3,5 +3,4 @@ require_relative 'db/db'
 
 DB.connect
 View.bem_vindo
-View.escolher_opcao
 DB.close
