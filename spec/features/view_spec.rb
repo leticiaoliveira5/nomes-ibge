@@ -1,7 +1,7 @@
 require 'spec_helper'
-require_relative '../lib/view'
-require_relative '../lib/pesquisa'
-require_relative '../db/db'
+require_relative '../../lib/view'
+require_relative '../../lib/pesquisa'
+require_relative '../../db/db'
 require 'stringio'
 
 DB.connect

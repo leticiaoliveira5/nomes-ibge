@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require_relative '../lib/view'
-require_relative '../lib/pesquisa'
-require_relative '../db/db'
+require_relative '../../lib/view'
+require_relative '../../lib/pesquisa'
+require_relative '../../db/db'
 
 DB.connect
 

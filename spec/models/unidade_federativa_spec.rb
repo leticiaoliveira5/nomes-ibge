@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../db/db'
+require_relative '../../db/db'
 
 DB.connect
 

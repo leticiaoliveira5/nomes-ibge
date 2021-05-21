@@ -59,13 +59,6 @@ class Pesquisa
     nomes_por_sexo(municipio.codigo, municipio.populacao)
   end
 
-  def self.frequencia_por_periodo(busca)
-    response = Api.nomes(busca.gsub(',', '%7C').to_s)
-    return View.opcao_invalida if response.empty?
-
-    nomes_por_periodo(response)
-  end
-
   def self.nomes_por_periodo(response)
     rows = []
     todos_os_periodos(response).each do |periodo|
@@ -81,6 +74,13 @@ class Pesquisa
   end
 
   # private
+
+  def self.frequencia_por_periodo(busca)
+    response = Api.nomes(busca.gsub(',', '%7C').to_s)
+    return View.opcao_invalida if response.empty?
+
+    nomes_por_periodo(response)
+  end
 
   def self.todos_os_nomes(response)
     response.map { |hash| hash[:nome] }.uniq.sort
