@@ -14,7 +14,7 @@ class Pesquisa
 
   def self.listar_municipios(sigla_uf)
     municipios = Municipio.where(sigla_uf: sigla_uf)
-    return View.opcao_invalida if municipios.nil?
+    return View.opcao_invalida if municipios.empty?
 
     rows = []
     municipios.each { |municipio| rows << [municipio.nome] }
@@ -59,18 +59,10 @@ class Pesquisa
     resposta[0][:res].each do |nome|
       rows << [nome[:ranking], nome[:nome], nome[:frequencia], percentual(nome[:frequencia], localidade.populacao)]
     end
-    case sexo
-    when 0
-      title = "Nomes mais frequentes - #{localidade.nome}"
-    when 'M'
-      title = "Nomes mais frequentes - #{localidade.nome} - Masculino"
-    when 'F'
-      title = "Nomes mais frequentes - #{localidade.nome} - Feminino"
-    end
+    title = "Nomes mais frequentes - #{localidade.nome}"
+    title << "- #{sexo}" if sexo != 0
     View.monta_tabela(title: title, headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
   end
-
-  # private
 
   def self.frequencia_por_periodo(busca)
     response = Api.nomes(busca.gsub(',', '%7C').to_s)

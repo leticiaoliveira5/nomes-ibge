@@ -1,0 +1,26 @@
+[
+  {"localidade":"3301702","sexo":null,"res":
+    [
+      {"nome":"MARIA","frequencia":39868,"ranking":1},
+      {"nome":"JOSE","frequencia":17166,"ranking":2},
+      {"nome":"ANA","frequencia":14802,"ranking":3},
+      {"nome":"JOAO","frequencia":10697,"ranking":4},
+      {"nome":"CARLOS","frequencia":9797,"ranking":5},
+      {"nome":"PAULO","frequencia":7691,"ranking":6},
+      {"nome":"ANTONIO","frequencia":7610,"ranking":7},
+      {"nome":"MARCOS","frequencia":6425,"ranking":8},
+      {"nome":"JORGE","frequencia":5903,"ranking":9},
+      {"nome":"LUIZ","frequencia":5705,"ranking":10},
+      {"nome":"LUCAS","frequencia":5494,"ranking":11},
+      {"nome":"GABRIEL","frequencia":5059,"ranking":12},
+      {"nome":"LUIS","frequencia":4807,"ranking":13},
+      {"nome":"PEDRO","frequencia":4660,"ranking":14},
+      {"nome":"MARCELO","frequencia":4552,"ranking":15},
+      {"nome":"RAFAEL","frequencia":4420,"ranking":16},
+      {"nome":"LEONARDO","frequencia":3651,"ranking":17},
+      {"nome":"DANIEL","frequencia":3616,"ranking":18},
+      {"nome":"FELIPE","frequencia":3606,"ranking":19},
+      {"nome":"MARCIA","frequencia":3569,"ranking":20}
+    ]
+  }
+]

@@ -47,7 +47,7 @@ class View
   def self.escolher_uf
     Pesquisa.listar_ufs
     print 'Digite a sigla da UF desejada: '
-    sigla_uf = gets.chomp.upcase
+    sigla_uf = $stdin.gets.chomp.upcase
     Pesquisa.nomes_por_uf(sigla_uf)
   end
 
@@ -63,7 +63,7 @@ class View
 
   def self.busca_nomes
     dicas_busca
-    print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar:'
+    print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar: '
     input = gets.chomp
     busca = input.downcase.gsub(/[^a-z]/, '')
     Pesquisa.frequencia_por_periodo(busca)
