@@ -2,8 +2,8 @@ require 'active_record'
 require 'csv'
 require_relative 'db'
 require_relative '../lib/api'
-require_relative '../lib/unidade_federativa'
-require_relative '../lib/municipio'
+require_relative '../models/unidade_federativa'
+require_relative '../models/municipio'
 
 DB.connect
 load 'db/schema.rb'

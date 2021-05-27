@@ -1,6 +1,6 @@
 require 'active_record'
-require_relative 'unidade_federativa'
-require_relative 'municipio'
+require_relative '../models/unidade_federativa'
+require_relative '../models/municipio'
 require_relative 'view'
 require_relative 'api'
 
