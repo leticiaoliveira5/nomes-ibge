@@ -16,20 +16,25 @@ Antes de começar, você vai precisar estar conectado à internet e ter instalad
 
 ### 🎲 Rodando o App no Terminal
 
+* Clone este repositório
 ```bash
-# Clone este repositório
-$ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
+git clone <https://github.com/leticiaoliveira5/nomes-ibge>
+```
 Ou, se não tiver o [Git](https://git-scm.com) instalado, faça o download manualmente.
 
-# Acesse a pasta do projeto no terminal/cmd
-$ cd nomes-ibge
+* Acesse a pasta do projeto no terminal/cmd
+```bash
+cd nomes-ibge
+```
 
-# Instala dependências e carrega os dados
-$ bin/setup
+* Instala dependências e carrega os dados
+```
+bin/setup
+```
 
-# Rode a aplicação no terminal com
-$ ruby nomes_do_brasil.rb
-
+* Roda a aplicação no terminal com
+```
+ruby nomes_do_brasil.rb
 ```
 
 ### :gem: Gems utilizadas
@@ -41,9 +46,9 @@ $ ruby nomes_do_brasil.rb
 * [StringIO](https://rubygems.org/gems/stringio/versions/0.0.1) - para simular inputs(gets) durante os testes
 
 ### :heavy_check_mark: Testando o código
+Execute o comando
 ```bash
-# Execute o comando
-$ rspec
+rspec
 ```
 ### :satellite: Fontes
 
