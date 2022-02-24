@@ -10,16 +10,16 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 
 ### :warning: Pré-requisitos
 
-Antes de começar, você vai precisar estar conectado à intrnet e ter instalado em sua máquina as seguintes ferramentas: 
+Antes de começar, você vai precisar estar conectado à internet e ter instalado em sua máquina: 
 
 * [Ruby](https://www.ruby-lang.org/pt/documentation/installation/) versão: 2.7.2
-* [Git](https://git-scm.com) 
 
 ### 🎲 Rodando o App no Terminal
 
 ```bash
 # Clone este repositório
 $ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
+Ou, se não tiver o [Git](https://git-scm.com) instalado, faça o download manualmente.
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd nomes-ibge
