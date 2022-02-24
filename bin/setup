@@ -3,8 +3,5 @@ set -e
 
 echo '=============== Instalando dependências ==============='
 bundle install
-echo '=============== Importando dados ==============='
-echo 'Este processo pode levar alguns minutos.........'
-ruby db/seed.rb
 
 echo
