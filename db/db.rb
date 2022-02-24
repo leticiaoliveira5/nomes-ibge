@@ -1,5 +1,5 @@
 require 'active_record'
-require 'pg'
+require 'sqlite3'
 
 class DB
   def self.connect
