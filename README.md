@@ -10,35 +10,31 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 
 ### :warning: Pré-requisitos
 
-Antes de começar, você vai precisar estar conectado à intrnet e ter instalado em sua máquina as seguintes ferramentas: 
+Antes de começar, você vai precisar estar conectado à internet e ter instalado em sua máquina: 
 
 * [Ruby](https://www.ruby-lang.org/pt/documentation/installation/) versão: 2.7.2
-* [Git](https://git-scm.com) 
-* [PostgreSQL](https://www.postgresql.org/)
 
 ### 🎲 Rodando o App no Terminal
 
+* Clone este repositório
 ```bash
-# Crie o usuário e a database PostgreSQL
-$ sudo -u postgres psql
-postgres=#
-$ CREATE USER localuser 
-$ ALTER USER localuser WITH password '1234' --superuser;
-$ CREATE DATABASE ibge --owner localuser
-$ \q
+git clone <https://github.com/leticiaoliveira5/nomes-ibge>
+```
+Ou, se não tiver o [Git](https://git-scm.com) instalado, faça o download manualmente.
 
-# Clone este repositório
-$ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
+* Acesse a pasta do projeto no terminal/cmd
+```bash
+cd nomes-ibge
+```
 
-# Acesse a pasta do projeto no terminal/cmd
-$ cd nomes-ibge
+* Instala dependências e carrega os dados
+```
+bin/setup
+```
 
-# Instala dependências e carrega os dados
-$ bin/setup
-
-# Rode a aplicação no terminal com
-$ ruby nomes_do_brasil.rb
-
+* Roda a aplicação no terminal com
+```
+ruby nomes_do_brasil.rb
 ```
 
 ### :gem: Gems utilizadas
@@ -50,9 +46,9 @@ $ ruby nomes_do_brasil.rb
 * [StringIO](https://rubygems.org/gems/stringio/versions/0.0.1) - para simular inputs(gets) durante os testes
 
 ### :heavy_check_mark: Testando o código
+Execute o comando
 ```bash
-# Execute o comando
-$ rspec
+rspec
 ```
 ### :satellite: Fontes
 

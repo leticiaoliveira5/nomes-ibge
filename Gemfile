@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gem 'activerecord'
 gem 'faraday'
-gem 'pg', '~> 1.1'
+gem 'sqlite3'
 gem 'rspec'
 gem 'stringio'
 gem 'terminal-table'
