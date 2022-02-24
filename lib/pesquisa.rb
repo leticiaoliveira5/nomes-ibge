@@ -13,16 +13,16 @@ class Pesquisa
   end
 
   def self.listar_municipios(sigla_uf)
-    municipios = Municipio.where(sigla_uf: sigla_uf)
+    municipios = Api.localidades('municipios').select { |record| record[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf}
     return View.opcao_invalida if municipios.empty?
 
     rows = []
-    municipios.each { |municipio| rows << [municipio.nome] }
+    municipios.each { |municipio| rows << [municipio[:nome]] }
     View.monta_tabela(title: "Municípios - #{sigla_uf}", headings: [], rows: rows)
   end
 
   def self.nomes_por_uf(sigla)
-    uf = UnidadeFederativa.find_by(sigla: sigla)
+    uf = Api.localidades('estados').find { |record| record[:sigla] == sigla }
     return View.opcao_invalida if uf.nil?
 
     ranking_nomes(0, uf)
@@ -31,7 +31,7 @@ class Pesquisa
   end
 
   def self.nomes_por_municipio(nome_municipio, sigla_uf)
-    municipio = Municipio.find_by(nome: nome_municipio, sigla_uf: sigla_uf)
+    municipio = Api.localidades('municipios').find { |record| record[:nome] == nome_municipio && record[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf}
     return View.opcao_invalida if municipio.nil?
 
     ranking_nomes(0, municipio)
@@ -54,12 +54,12 @@ class Pesquisa
   end
 
   def self.ranking_nomes(sexo, localidade)
-    resposta = Api.nomes("ranking?sexo=#{sexo}&localidade=#{localidade.codigo}")
+    resposta = Api.nomes("ranking?sexo=#{sexo}&localidade=#{localidade[:codigo]}")
     rows = []
     resposta[0][:res].each do |nome|
-      rows << [nome[:ranking], nome[:nome], nome[:frequencia], percentual(nome[:frequencia], localidade.populacao)]
+      rows << [nome[:ranking], nome[:nome], nome[:frequencia], percentual(nome[:frequencia], 0)]
     end
-    title = "Nomes mais frequentes - #{localidade.nome}"
+    title = "Nomes mais frequentes - #{localidade[:nome]}"
     title << "- #{sexo}" if sexo != 0
     View.monta_tabela(title: title, headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
   end
