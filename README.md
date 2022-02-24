@@ -14,6 +14,11 @@ Antes de começar, você vai precisar estar conectado à internet e ter instalad
 
 * [Ruby](https://www.ruby-lang.org/pt/documentation/installation/) versão: 2.7.2
 
+Para instalar o ruby, você pode usar o comando (no Linux):
+```bash
+sudo apt-get install ruby
+```
+
 ### 🎲 Rodando o App no Terminal
 
 * Clone este repositório
