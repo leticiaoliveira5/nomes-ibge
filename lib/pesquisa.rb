@@ -1,13 +1,11 @@
 require 'active_record'
-require_relative '../models/unidade_federativa'
-require_relative '../models/municipio'
 require_relative 'view'
 require_relative 'api'
 
 class Pesquisa
   def self.listar_ufs
     rows = []
-    UnidadeFederativa.all.each { |uf| rows << [uf.sigla, uf.nome] }
+    Api.localidades('estados').each { |uf| rows << [uf[:sigla], uf[:nome]] }
     View.monta_tabela(title: 'Lista das Unidades Federativas',
                       headings: %w[SIGLA NOME], rows: rows)
   end
