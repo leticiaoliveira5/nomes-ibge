@@ -14,19 +14,10 @@ Antes de começar, você vai precisar estar conectado à intrnet e ter instalado
 
 * [Ruby](https://www.ruby-lang.org/pt/documentation/installation/) versão: 2.7.2
 * [Git](https://git-scm.com) 
-* [PostgreSQL](https://www.postgresql.org/)
 
 ### 🎲 Rodando o App no Terminal
 
 ```bash
-# Crie o usuário e a database PostgreSQL
-$ sudo -u postgres psql
-postgres=#
-$ CREATE USER localuser 
-$ ALTER USER localuser WITH password '1234' --superuser;
-$ CREATE DATABASE ibge --owner localuser
-$ \q
-
 # Clone este repositório
 $ git clone <https://github.com/leticiaoliveira5/nomes-ibge>
 
