@@ -8,7 +8,7 @@ Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nom
 - [x] Rankings dos nomes separados por gênero
 - [x] Frequência do uso de um nome ao longo dos anos
 
-### :warning: Pré-requisitos
+### 🎲 Rodando o App no Terminal
 
 Antes de começar, você vai precisar estar conectado à internet e ter instalado em sua máquina: 
 
@@ -18,8 +18,6 @@ Para instalar o ruby, você pode usar o comando (no Linux):
 ```bash
 sudo apt-get install ruby
 ```
-
-### 🎲 Rodando o App no Terminal
 
 * Clone este repositório
 ```bash
