@@ -20,6 +20,7 @@ describe Pesquisa do
                                                                     'Aquidabã',
                                                                     'Areia Branca')).to_stdout
     end
+
     it 'mostra erro caso a UF digitada não exista' do
       expect { Pesquisa.listar_municipios('PS') }.to output(a_string_including('Opção Inválida')).to_stdout
       expect { Pesquisa.listar_municipios('PS') }.not_to output(include('Municipios- PS')).to_stdout
@@ -32,12 +33,12 @@ describe Pesquisa do
       resp_double = double('faraday_resp', status: 200, body: json)
       allow(Faraday).to receive(:get).and_return(resp_double)
       expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Nomes mais frequentes - Acre',
-                                                               'RANKING', 'NOME', 'FREQUÊNCIA', 'PERCENTUAL',
-                                                               '1', 'MARIA', '63172', '7.16%',
-                                                               '2', 'JOSE', '24599', '2.79%')).to_stdout
+                                                               'RANKING', 'NOME', 'FREQUÊNCIA', 'PERCENTUAL')).to_stdout
     end
+
     it 'mostra erro caso a sigla recebida não corresponda a uma UF' do
-      allow(Faraday).to receive(:get).and_return([])
+      resp_double = double('faraday_resp', status: 400, body: '')
+      allow(Faraday).to receive(:get).and_return(resp_double)
       expect { Pesquisa.nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
     end
   end
@@ -53,7 +54,11 @@ describe Pesquisa do
                             '1', 'MARIA',
                             '2', 'JOSE')).to_stdout
     end
+
     it 'mostra erro se município não existe' do
+      resp_double = double('faraday_resp', status: 400, body: '')
+      allow(Faraday).to receive(:get).and_return(resp_double)
+
       expect do
         Pesquisa.nomes_por_municipio('Cabo', 'AM')
       end.to output(a_string_including('Opção Inválida')).to_stdout
@@ -72,6 +77,7 @@ describe Pesquisa do
                                                                                  '1930[', '336477',
                                                                                  '[1930,1940[', '749053')).to_stdout
     end
+
     it 'mostra erro caso a busca não retorne resultado' do
       allow(Faraday).to receive(:gets).and_return([])
       expect do
