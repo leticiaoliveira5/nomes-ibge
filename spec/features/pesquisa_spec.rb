@@ -80,5 +80,3 @@ describe Pesquisa do
     end
   end
 end
-
-DB.close
