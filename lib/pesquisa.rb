@@ -2,7 +2,7 @@ require 'active_record'
 require_relative 'view'
 require_relative 'api'
 
-$PARSED_POPULATION_FILE = eval(File.read('data/parsed_population_data.txt'))
+PARSED_POPULATION_FILE = eval(File.read('data/parsed_population_data'))
 
 class Pesquisa
   def self.listar_ufs
@@ -88,7 +88,7 @@ class Pesquisa
   end
 
   def self.populacao(codigo_localidade)
-    resultado = $PARSED_POPULATION_FILE.find { |hash| hash['Cód.'].to_i == codigo_localidade }
+    resultado = PARSED_POPULATION_FILE.find { |hash| hash['Cód.'].to_i == codigo_localidade }
     resultado['População Residente - 2019'].to_f
   end
 end
