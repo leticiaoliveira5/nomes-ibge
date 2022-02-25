@@ -1,4 +1,3 @@
-require 'active_record'
 require_relative 'view'
 require_relative 'api'
 

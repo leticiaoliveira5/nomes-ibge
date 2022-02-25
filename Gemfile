@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'activerecord'
+gem 'activesupport'
 gem 'faraday'
 gem 'rspec'
 gem 'sqlite3'
