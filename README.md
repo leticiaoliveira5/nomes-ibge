@@ -32,14 +32,9 @@ Ou, se não tiver o [Git](https://git-scm.com) instalado, faça o download manua
 cd nomes-ibge
 ```
 
-* Instala dependências e carrega os dados
-```
-bin/setup
-```
-
 * Roda a aplicação no terminal com
-```
-ruby nomes_do_brasil.rb
+```bash
+./nomes
 ```
 
 ### :gem: Gems utilizadas
