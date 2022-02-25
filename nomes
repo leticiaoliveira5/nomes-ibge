@@ -2,6 +2,7 @@
 set -e
 echo
 echo '================= Instalando dependências =================='
+echo
 bundle install
 echo
 echo '===================== Extraindo Dados... ====================='
