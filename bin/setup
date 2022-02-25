@@ -4,4 +4,6 @@ set -e
 echo '=============== Instalando dependências ==============='
 bundle install
 
+echo '=================== Extraindo Dados =================='
+ruby 'data/start.rb'
 echo
