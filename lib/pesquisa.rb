@@ -54,11 +54,11 @@ class Pesquisa
   end
 
   def self.ranking_nomes(sexo, localidade)
-    resposta = Api.ranking_nomes(sexo, localidade[:codigo])
+    resposta = Api.ranking_nomes(sexo, localidade[:id])
     rows = []
     resposta[0][:res].each do |nome|
       rows << [nome[:ranking], nome[:nome], nome[:frequencia],
-               percentual(nome[:frequencia], populacao(localidade[:codigo]))]
+               percentual(nome[:frequencia], populacao(localidade[:id]))]
     end
     title = "Nomes mais frequentes - #{localidade[:nome]}"
     title << "- #{sexo}" if sexo != 0
