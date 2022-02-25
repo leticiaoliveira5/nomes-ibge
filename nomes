@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+echo
+echo '================= Instalando dependências =================='
+bundle install
+echo
+echo '===================== Extraindo Dados... ====================='
+echo
+ruby 'start.rb'
