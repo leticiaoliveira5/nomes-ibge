@@ -13,4 +13,4 @@ echo
 rspec
 echo
 echo '================== A aplicação está pronta ==================='
-ruby 'start.rb'
+ruby 'nomes_brasil.rb'

@@ -34,7 +34,7 @@ cd nomes-ibge
 
 * Roda a aplicação no terminal com
 ```bash
-./nomes
+./nomes_brasil
 ```
 
 ### :gem: Gems utilizadas
