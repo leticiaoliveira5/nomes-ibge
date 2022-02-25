@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'active_support/all'
 PROJECT_ROOT = File.expand_path('..', __dir__)
 

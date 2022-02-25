@@ -14,7 +14,7 @@ Metrics/AbcSize:
   Enabled: false  
 
 Metrics/BlockLength:
-  IgnoredMethods: ['describe', 'context', 'feature', 'scenario', 'let']
+  IgnoredMethods: ['describe']
 
 Metrics/MethodLength:
   Max: 15

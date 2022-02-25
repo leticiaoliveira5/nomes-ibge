@@ -32,7 +32,7 @@ cd nomes-ibge
 
 * Roda a aplicação no terminal com
 ```bash
-./nomes
+./nomes_brasil
 ```
 
 ### :gem: Gems utilizadas
@@ -43,11 +43,6 @@ cd nomes-ibge
 * [Activesupport](https://rubygems.org/gems/activesupport/versions/5.0.0.1?locale=pt-BR) - ferramentas do rails
 * [StringIO](https://rubygems.org/gems/stringio/versions/0.0.1) - para simular inputs(gets) durante os testes
 
-### :heavy_check_mark: Testando o código
-Execute o comando
-```bash
-rspec
-```
 ### :satellite: Fontes
 
 * API de Localidades: https://servicodados.ibge.gov.br/api/docs/localidades?versao=1

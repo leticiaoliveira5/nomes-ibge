@@ -24,9 +24,7 @@ class Pesquisa
     uf = Api.estados.find { |record| record[:sigla] == sigla }
     return View.opcao_invalida if uf.nil?
 
-    ranking_nomes(0, uf)
-    ranking_nomes('M', uf)
-    ranking_nomes('F', uf)
+    ranking_nomes(uf)
   end
 
   def self.nomes_por_municipio(nome_municipio, sigla_uf)
@@ -35,9 +33,7 @@ class Pesquisa
     end
     return View.opcao_invalida if municipio.nil?
 
-    ranking_nomes(0, municipio)
-    ranking_nomes('M', municipio)
-    ranking_nomes('F', municipio)
+    ranking_nomes(municipio)
   end
 
   def self.nomes_por_periodo(response)
@@ -54,16 +50,18 @@ class Pesquisa
                       headings: ['PERÍODO'] + todos_os_nomes(response), rows: rows)
   end
 
-  def self.ranking_nomes(sexo, localidade)
-    resposta = Api.ranking_nomes(sexo, localidade[:id])
-    rows = []
-    resposta[0][:res].each do |nome|
-      rows << [nome[:ranking], nome[:nome], nome[:frequencia],
-               percentual(nome[:frequencia], populacao(localidade[:id]))]
+  def self.ranking_nomes(localidade)
+    [0, 'M', 'F'].each do |sexo|
+      resposta = Api.ranking_nomes(sexo, localidade[:id])
+      rows = []
+      resposta[0][:res].each do |nome|
+        rows << [nome[:ranking], nome[:nome], nome[:frequencia],
+                 percentual(nome[:frequencia], populacao(resposta[0][:localidade].to_i))]
+      end
+      title = "Nomes mais frequentes - #{localidade[:nome]}"
+      title << "- #{sexo}" if sexo != 0
+      View.monta_tabela(title: title, headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
     end
-    title = "Nomes mais frequentes - #{localidade[:nome]}"
-    title << "- #{sexo}" if sexo != 0
-    View.monta_tabela(title: title, headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
   end
 
   def self.frequencia_por_periodo(busca)
