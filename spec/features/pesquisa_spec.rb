@@ -32,17 +32,16 @@ describe Pesquisa do
   end
 
   describe '#nomes_por_uf' do
-    # context 'quando a UF digitada existe' do
-    #   it 'mostra os nomes mais frequentes na UF' do
-    #     json = File.read('spec/support/ranking_nomes_acre.json')
-    #     resp_double = double('faraday_resp', status: 200, body: json)
-    #     allow(Faraday).to receive(:get).and_return(resp_double)
+    context 'quando a UF digitada existe' do
+      it 'mostra os nomes mais frequentes na UF' do
+        json = JSON.parse(File.read('spec/support/ranking_nomes_acre.json'), symbolize_names: true)
+        allow(Api).to receive(:ranking_nomes).and_return(json)
 
-    #     expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Nomes mais frequentes - Acre',
-    #                                                              'RANKING', 'NOME',
-    #                                                              'FREQUÊNCIA', 'PERCENTUAL')).to_stdout
-    #   end
-    # end
+        expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Nomes mais frequentes - Acre',
+                                                                 'RANKING', 'NOME',
+                                                                 'FREQUÊNCIA', 'PERCENTUAL')).to_stdout
+      end
+    end
 
     context 'quando a UF digitada não existe' do
       it 'mostra erro' do
@@ -55,19 +54,18 @@ describe Pesquisa do
   end
 
   describe '#nomes_por_municipio' do
-    # context 'quando a pesquisa retorna resultados' do
-    #   it 'mostra nomes mais frequentes no Municipio' do
-    #     json = File.read('spec/support/ranking_nomes_caxias.json')
-    #     resp_double = double('faraday_resp', status: 200, body: json)
-    #     allow(Faraday).to receive(:get).and_return(resp_double)
+    context 'quando a pesquisa retorna resultados' do
+      it 'mostra nomes mais frequentes no Municipio' do
+        response = JSON.parse(File.read('spec/support/ranking_nomes_caxias.json'), symbolize_names: true)
+        allow(Api).to receive(:ranking_nomes).and_return(response)
 
-    #     expect do
-    #       Pesquisa.nomes_por_municipio('Duque de Caxias', 'RJ')
-    #     end.to output(include('Nomes mais frequentes - Duque de Caxias',
-    #                           '1', 'MARIA',
-    #                           '2', 'JOSE')).to_stdout
-    #   end
-    # end
+        expect do
+          Pesquisa.nomes_por_municipio('Duque de Caxias', 'RJ')
+        end.to output(include('Nomes mais frequentes - Duque de Caxias',
+                              '1', 'MARIA',
+                              '2', 'JOSE')).to_stdout
+      end
+    end
 
     context 'quando a pesquisa não encontra o município' do
       it 'mostra erro' do
