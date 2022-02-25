@@ -12,7 +12,9 @@ class Pesquisa
   end
 
   def self.listar_municipios(sigla_uf)
-    municipios = Api.municipios.select { |record| record[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf }
+    municipios = Api.municipios.select do |record|
+      record[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf
+    end
     return View.opcao_invalida if municipios.empty?
 
     rows = []
