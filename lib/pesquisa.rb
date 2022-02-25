@@ -1,28 +1,28 @@
 require 'active_record'
-require_relative '../models/unidade_federativa'
-require_relative '../models/municipio'
 require_relative 'view'
 require_relative 'api'
+
+PARSED_POPULATION_FILE = eval(File.read('data/parsed_population_data'))
 
 class Pesquisa
   def self.listar_ufs
     rows = []
-    UnidadeFederativa.all.each { |uf| rows << [uf.sigla, uf.nome] }
+    Api.localidades('estados').each { |uf| rows << [uf[:sigla], uf[:nome]] }
     View.monta_tabela(title: 'Lista das Unidades Federativas',
                       headings: %w[SIGLA NOME], rows: rows)
   end
 
   def self.listar_municipios(sigla_uf)
-    municipios = Municipio.where(sigla_uf: sigla_uf)
+    municipios = Api.municipios.select { |record| record[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf }
     return View.opcao_invalida if municipios.empty?
 
     rows = []
-    municipios.each { |municipio| rows << [municipio.nome] }
+    municipios.each { |municipio| rows << [municipio[:nome]] }
     View.monta_tabela(title: "Municípios - #{sigla_uf}", headings: [], rows: rows)
   end
 
   def self.nomes_por_uf(sigla)
-    uf = UnidadeFederativa.find_by(sigla: sigla)
+    uf = Api.estados.find { |record| record[:sigla] == sigla }
     return View.opcao_invalida if uf.nil?
 
     ranking_nomes(0, uf)
@@ -31,7 +31,9 @@ class Pesquisa
   end
 
   def self.nomes_por_municipio(nome_municipio, sigla_uf)
-    municipio = Municipio.find_by(nome: nome_municipio, sigla_uf: sigla_uf)
+    municipio = Api.municipios.find do |record|
+      record[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf && record[:nome] == nome_municipio
+    end
     return View.opcao_invalida if municipio.nil?
 
     ranking_nomes(0, municipio)
@@ -54,12 +56,13 @@ class Pesquisa
   end
 
   def self.ranking_nomes(sexo, localidade)
-    resposta = Api.nomes("ranking?sexo=#{sexo}&localidade=#{localidade.codigo}")
+    resposta = Api.ranking_nomes(sexo, localidade[:id])
     rows = []
     resposta[0][:res].each do |nome|
-      rows << [nome[:ranking], nome[:nome], nome[:frequencia], percentual(nome[:frequencia], localidade.populacao)]
+      rows << [nome[:ranking], nome[:nome], nome[:frequencia],
+               percentual(nome[:frequencia], populacao(localidade[:id]))]
     end
-    title = "Nomes mais frequentes - #{localidade.nome}"
+    title = "Nomes mais frequentes - #{localidade[:nome]}"
     title << "- #{sexo}" if sexo != 0
     View.monta_tabela(title: title, headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
   end
@@ -82,5 +85,10 @@ class Pesquisa
   def self.percentual(frequencia, populacao)
     percentual = (frequencia.to_f / populacao) * 100
     "#{percentual.round(2)}%"
+  end
+
+  def self.populacao(codigo_localidade)
+    resultado = PARSED_POPULATION_FILE.find { |hash| hash['Cód.'].to_i == codigo_localidade }
+    resultado ? resultado['População Residente - 2019'].to_f : 0
   end
 end

@@ -1,9 +1,6 @@
 require 'spec_helper'
 require_relative '../../lib/view'
 require_relative '../../lib/pesquisa'
-require_relative '../../db/db'
-
-DB.connect
 
 describe View do
   context '#bem_vindo' do

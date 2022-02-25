@@ -1,10 +1,11 @@
 #!/usr/bin/env sh
 set -e
-
-echo '=============== Instalando dependências ==============='
+echo '=============== Instalando dependências ================'
 bundle install
-echo '=============== Importando dados ==============='
-echo 'Este processo pode levar alguns minutos.........'
-ruby db/seed.rb
-
+echo '=================== Extraindo Dados... ==================='
+ruby 'data/start.rb'
+echo
+echo '====== A aplicação está pronta e pode ser iniciada ======='
+echo
+echo '======== Rode o comando `ruby nomes_do_brasil.rb` ========'
 echo
