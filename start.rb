@@ -1,4 +1,3 @@
-require 'active_record'
 require 'csv'
 require_relative 'lib/view'
 
