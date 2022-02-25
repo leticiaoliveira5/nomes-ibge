@@ -59,7 +59,7 @@ class Pesquisa
     rows = []
     resposta[0][:res].each do |nome|
       rows << [nome[:ranking], nome[:nome], nome[:frequencia],
-               percentual(nome[:frequencia], populacao(localidade[:id]))]
+               percentual(nome[:frequencia], populacao(resposta[0][:localidade].to_i))]
     end
     title = "Nomes mais frequentes - #{localidade[:nome]}"
     title << "- #{sexo}" if sexo != 0
