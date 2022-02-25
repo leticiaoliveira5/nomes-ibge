@@ -1,9 +1,13 @@
 #!/bin/bash
 set -e
 echo
-echo '================= Instalando dependências =================='
+echo '================ Instalando dependências... ================='
 echo
 bundle install
+echo
+echo '==================== Testando o código... ===================='
+echo
+rspec
 echo
 echo '===================== Extraindo Dados... ====================='
 echo
