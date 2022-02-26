@@ -28,9 +28,6 @@ describe Pesquisa do
         expect do
           Pesquisa.listar_municipios('PS')
         end.to output(a_string_including('Opção Inválida')).to_stdout
-        expect do
-          Pesquisa.listar_municipios('PS')
-        end.not_to output(include('Municipios- PS')).to_stdout
       end
     end
   end
@@ -41,11 +38,10 @@ describe Pesquisa do
         json = JSON.parse(File.read('spec/support/ranking_nomes_acre.json'), symbolize_names: true)
         allow(Api).to receive(:ranking_nomes).and_return(json)
 
-        expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Acre - Ranking Nomes - Todos',
-                                                                 'RANKING',
-                                                                 'NOME',
-                                                                 'FREQUÊNCIA',
-                                                                 'PERCENTUAL')).to_stdout
+        expect do
+          Pesquisa.nomes_por_uf('AC')
+        end.to output(include('Acre - Ranking Nomes - Todos',
+                              'RANKING', 'NOME', 'FREQUÊNCIA', 'PERCENTUAL')).to_stdout
       end
     end
 
