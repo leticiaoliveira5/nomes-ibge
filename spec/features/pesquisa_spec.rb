@@ -25,8 +25,9 @@ describe Pesquisa do
 
     context 'quando a UF digitada não existe' do
       it 'mostra erro' do
-        expect { Pesquisa.listar_municipios('PS') }.to output(a_string_including('Opção Inválida')).to_stdout
-        expect { Pesquisa.listar_municipios('PS') }.not_to output(include('Municipios- PS')).to_stdout
+        expect do
+          Pesquisa.listar_municipios('PS')
+        end.to output(a_string_including('Opção Inválida')).to_stdout
       end
     end
   end
@@ -37,9 +38,10 @@ describe Pesquisa do
         json = JSON.parse(File.read('spec/support/ranking_nomes_acre.json'), symbolize_names: true)
         allow(Api).to receive(:ranking_nomes).and_return(json)
 
-        expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Nomes mais frequentes - Acre',
-                                                                 'RANKING', 'NOME',
-                                                                 'FREQUÊNCIA', 'PERCENTUAL')).to_stdout
+        expect do
+          Pesquisa.nomes_por_uf('AC')
+        end.to output(include('Acre - Ranking Nomes - Todos',
+                              'RANKING', 'NOME', 'FREQUÊNCIA', 'PERCENTUAL')).to_stdout
       end
     end
 
@@ -48,7 +50,9 @@ describe Pesquisa do
         resp_double = double('faraday_resp', status: 400, body: '')
         allow(Faraday).to receive(:get).and_return(resp_double)
 
-        expect { Pesquisa.nomes_por_uf('SS') }.to output(a_string_including('Opção Inválida')).to_stdout
+        expect do
+          Pesquisa.nomes_por_uf('SS')
+        end.to output(a_string_including('Opção Inválida')).to_stdout
       end
     end
   end
@@ -56,12 +60,13 @@ describe Pesquisa do
   describe '#nomes_por_municipio' do
     context 'quando a pesquisa retorna resultados' do
       it 'mostra nomes mais frequentes no Municipio' do
-        response = JSON.parse(File.read('spec/support/ranking_nomes_caxias.json'), symbolize_names: true)
+        response = JSON.parse(File.read('spec/support/ranking_nomes_caxias.json'),
+                              symbolize_names: true)
         allow(Api).to receive(:ranking_nomes).and_return(response)
 
         expect do
           Pesquisa.nomes_por_municipio('Duque de Caxias', 'RJ')
-        end.to output(include('Nomes mais frequentes - Duque de Caxias',
+        end.to output(include('Duque de Caxias - Ranking Nomes - Todos',
                               '1', 'MARIA',
                               '2', 'JOSE')).to_stdout
       end
@@ -86,12 +91,14 @@ describe Pesquisa do
         resp_double = double('faraday_resp', status: 200, body: json)
         allow(Faraday).to receive(:get).and_return(resp_double)
 
-        expect { Pesquisa.frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
-                                                                                   '1930[', '254',
-                                                                                   '[1930,1940[', '582',
-                                                                                   'MARIA',
-                                                                                   '1930[', '336477',
-                                                                                   '[1930,1940[', '749053')).to_stdout
+        expect do
+          Pesquisa.frequencia_por_periodo('Mara,Maria')
+        end.to output(include('MARA',
+                              '1930[', '254',
+                              '[1930,1940[', '582',
+                              'MARIA',
+                              '1930[', '336477',
+                              '[1930,1940[', '749053')).to_stdout
       end
     end
 

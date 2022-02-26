@@ -64,8 +64,7 @@ class View
   def self.busca_nomes
     dicas_busca
     print 'Digite um ou mais nomes (separados por vírgula) que deseja buscar: '
-    input = gets.chomp
-    busca = input.downcase.gsub(/[^a-z]/, '')
+    busca = gets.chomp.downcase.gsub(',', '%7C').gsub(' ', '')
     Pesquisa.frequencia_por_periodo(busca)
   end
 
