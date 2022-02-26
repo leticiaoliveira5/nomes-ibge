@@ -42,8 +42,10 @@ describe Pesquisa do
         allow(Api).to receive(:ranking_nomes).and_return(json)
 
         expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Nomes mais frequentes - Acre',
-                                                                 'RANKING', 'NOME',
-                                                                 'FREQUÊNCIA', 'PERCENTUAL')).to_stdout
+                                                                 'RANKING',
+                                                                 'NOME',
+                                                                 'FREQUÊNCIA',
+                                                                 'PERCENTUAL')).to_stdout
       end
     end
 
@@ -93,12 +95,14 @@ describe Pesquisa do
         resp_double = double('faraday_resp', status: 200, body: json)
         allow(Faraday).to receive(:get).and_return(resp_double)
 
-        expect { Pesquisa.frequencia_por_periodo('Mara,Maria') }.to output(include('MARA',
-                                                                                   '1930[', '254',
-                                                                                   '[1930,1940[', '582',
-                                                                                   'MARIA',
-                                                                                   '1930[', '336477',
-                                                                                   '[1930,1940[', '749053')).to_stdout
+        expect do
+          Pesquisa.frequencia_por_periodo('Mara,Maria')
+        end.to output(include('MARA',
+                              '1930[', '254',
+                              '[1930,1940[', '582',
+                              'MARIA',
+                              '1930[', '336477',
+                              '[1930,1940[', '749053')).to_stdout
       end
     end
 

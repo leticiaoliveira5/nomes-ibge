@@ -30,8 +30,8 @@ class Pesquisa
   end
 
   def self.nomes_por_municipio(nome_municipio, sigla_uf)
-    municipio = Api.municipios.find do |record|
-      record[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf && record[:nome] == nome_municipio
+    municipio = Api.municipios.find do |hash|
+      hash[:microrregiao][:mesorregiao][:UF][:sigla] == sigla_uf && hash[:nome] == nome_municipio
     end
     return View.opcao_invalida if municipio.nil?
 
