@@ -41,7 +41,7 @@ describe Pesquisa do
         json = JSON.parse(File.read('spec/support/ranking_nomes_acre.json'), symbolize_names: true)
         allow(Api).to receive(:ranking_nomes).and_return(json)
 
-        expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Nomes mais frequentes - Acre',
+        expect { Pesquisa.nomes_por_uf('AC') }.to output(include('Acre - Ranking Nomes - Todos',
                                                                  'RANKING',
                                                                  'NOME',
                                                                  'FREQUÊNCIA',
@@ -70,7 +70,7 @@ describe Pesquisa do
 
         expect do
           Pesquisa.nomes_por_municipio('Duque de Caxias', 'RJ')
-        end.to output(include('Nomes mais frequentes - Duque de Caxias',
+        end.to output(include('Duque de Caxias - Ranking Nomes - Todos',
                               '1', 'MARIA',
                               '2', 'JOSE')).to_stdout
       end

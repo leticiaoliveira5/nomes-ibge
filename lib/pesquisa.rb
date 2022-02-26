@@ -2,6 +2,7 @@ require_relative 'view'
 require_relative 'api'
 
 PARSED_POPULATION_FILE = eval(File.read('data/parsed_population_data'))
+SEXOS = { 'M' => 'Masculino', 'F' => 'Feminino', '0' => 'Todos' }.freeze
 
 class Pesquisa
   def self.listar_ufs
@@ -26,7 +27,7 @@ class Pesquisa
     uf = Api.estados.find { |record| record[:sigla] == sigla }
     return View.opcao_invalida if uf.nil?
 
-    ranking_nomes(uf)
+    %w[0 M F].each { |sexo| ranking_nomes(sexo, uf) }
   end
 
   def self.nomes_por_municipio(nome_municipio, sigla_uf)
@@ -35,7 +36,7 @@ class Pesquisa
     end
     return View.opcao_invalida if municipio.nil?
 
-    ranking_nomes(municipio)
+    %w[0 M F].each { |sexo| ranking_nomes(sexo, municipio) }
   end
 
   def self.nomes_por_periodo(response)
@@ -44,7 +45,7 @@ class Pesquisa
       row = [periodo]
       response.each do |hash|
         match = hash[:res].find { |item| item[:periodo] == periodo }
-        if match then row << match[:frequencia] else row << '-' end
+        row << (match ? match[:frequencia] : '-')
       end
       rows << row
     end
@@ -52,22 +53,19 @@ class Pesquisa
                       headings: ['PERÍODO'] + todos_os_nomes(response), rows: rows)
   end
 
-  def self.ranking_nomes(localidade)
-    [0, 'M', 'F'].each do |sexo|
-      resposta = Api.ranking_nomes(sexo, localidade[:id])
-      rows = []
-      resposta[0][:res].each do |nome|
-        rows << [nome[:ranking], nome[:nome], nome[:frequencia],
-                 percentual(nome[:frequencia], populacao(resposta[0][:localidade].to_i))]
-      end
-      title = "Nomes mais frequentes - #{localidade[:nome]}"
-      title << "- #{sexo}" if sexo != 0
-      View.monta_tabela(title: title, headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
+  def self.ranking_nomes(sexo, localidade)
+    resposta = Api.ranking_nomes(sexo, localidade[:id])
+    rows = []
+    resposta[0][:res].each do |nome|
+      rows << [nome[:ranking], nome[:nome], nome[:frequencia],
+               percentual(nome[:frequencia], populacao(resposta[0][:localidade].to_i))]
     end
+    title = "#{localidade[:nome]} - Ranking Nomes - #{SEXOS[sexo]}"
+    View.monta_tabela(title: title, headings: %w[RANKING NOME FREQUÊNCIA PERCENTUAL], rows: rows)
   end
 
   def self.frequencia_por_periodo(busca)
-    response = Api.nomes(busca.gsub(',', '%7C').to_s)
+    response = Api.nomes(busca)
     return View.opcao_invalida if response.empty?
 
     nomes_por_periodo(response)

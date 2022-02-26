@@ -8,10 +8,10 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/ConditionalAssignment:
-  Enabled: false
+  Enabled: true
 
 Metrics/AbcSize:
-  Enabled: false  
+  Enabled: true 
 
 Metrics/BlockLength:
   IgnoredMethods: ['describe']
