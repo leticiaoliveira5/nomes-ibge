@@ -3,7 +3,7 @@ require 'spec_helper'
 describe View do
   context '#bem_vindo' do
     it 'mostra menu ao iniciar aplicação' do
-      $stdin = StringIO.new('4')
+      allow($stdin).to receive(:gets).and_return('4')
       expect do
         View.bem_vindo
       end.to output(include('Seja bem-vind@ ao sistema de nomes do Brasil',
@@ -17,15 +17,17 @@ describe View do
 
   context '#escolher_UF' do
     it 'usuário escolher uma UF' do
-      $stdin = StringIO.new('AC')
+      VCR.use_cassette('escolher_UF') do
+        allow($stdin).to receive(:gets).and_return('AC')
 
-      expect { View.escolher_uf }.to output(include('Lista das Unidades Federativas',
-                                                    'Acre', 'AC',
-                                                    'Amazonas', 'AM',
-                                                    'São Paulo', 'SP',
-                                                    'Minas Gerais', 'MG',
-                                                    'Tocantins', 'TO',
-                                                    'Digite a sigla da UF desejada: ')).to_stdout
+        expect { View.escolher_uf }.to output(include('Lista das Unidades Federativas',
+                                                      'Acre', 'AC',
+                                                      'Amazonas', 'AM',
+                                                      'São Paulo', 'SP',
+                                                      'Minas Gerais', 'MG',
+                                                      'Tocantins', 'TO',
+                                                      'Digite a sigla da UF desejada: ')).to_stdout
+      end
     end
   end
 end
