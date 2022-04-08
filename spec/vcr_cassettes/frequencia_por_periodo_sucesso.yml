@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://servicodados.ibge.gov.br/api/v2/censos/nomes/mara%7Cmaria
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 08 Apr 2022 02:15:56 GMT
+      server:
+      - Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_qos/11.5
+      content-type:
+      - application/json
+      content-length:
+      - '915'
+      cache-control:
+      - max-age=1
+      expires:
+      - Fri, 08 Apr 2022 02:15:54 GMT
+      access-control-allow-methods:
+      - GET
+      access-control-allow-origin:
+      - "*"
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '[{"nome":"MARA","sexo":null,"localidade":"BR","res":[{"periodo":"1930[","frequencia":254},{"periodo":"[1930,1940[","frequencia":582},{"periodo":"[1940,1950[","frequencia":1722},{"periodo":"[1950,1960[","frequencia":11006},{"periodo":"[1960,1970[","frequencia":24326},{"periodo":"[1970,1980[","frequencia":21474},{"periodo":"[1980,1990[","frequencia":16242},{"periodo":"[1990,2000[","frequencia":8988},{"periodo":"[2000,2010[","frequencia":4324}]},{"nome":"MARIA","sexo":null,"localidade":"BR","res":[{"periodo":"1930[","frequencia":336477},{"periodo":"[1930,1940[","frequencia":749053},{"periodo":"[1940,1950[","frequencia":1487042},{"periodo":"[1950,1960[","frequencia":2476482},{"periodo":"[1960,1970[","frequencia":2495491},{"periodo":"[1970,1980[","frequencia":1616019},{"periodo":"[1980,1990[","frequencia":917968},{"periodo":"[1990,2000[","frequencia":544296},{"periodo":"[2000,2010[","frequencia":1111301}]}]'
+  recorded_at: Fri, 08 Apr 2022 02:15:54 GMT
+recorded_with: VCR 6.1.0

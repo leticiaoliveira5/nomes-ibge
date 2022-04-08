@@ -1,0 +1,152 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://servicodados.ibge.gov.br/api/v1/localidades/estados
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 08 Apr 2022 01:36:18 GMT
+      server:
+      - Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_qos/11.5
+      cache-control:
+      - max-age=2592000
+      expires:
+      - Sun, 08 May 2022 01:36:17 GMT
+      access-control-allow-headers:
+      - Content-Type
+      access-control-allow-methods:
+      - GET
+      access-control-allow-origin:
+      - "*"
+      age:
+      - '2'
+      content-length:
+      - '2446'
+      connection:
+      - close
+      content-type:
+      - application/json; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        W3siaWQiOjExLCJzaWdsYSI6IlJPIiwibm9tZSI6IlJvbmTDtG5pYSIsInJlZ2lhbyI6eyJpZCI6MSwic2lnbGEiOiJOIiwibm9tZSI6Ik5vcnRlIn19LHsiaWQiOjEyLCJzaWdsYSI6IkFDIiwibm9tZSI6IkFjcmUiLCJyZWdpYW8iOnsiaWQiOjEsInNpZ2xhIjoiTiIsIm5vbWUiOiJOb3J0ZSJ9fSx7ImlkIjoxMywic2lnbGEiOiJBTSIsIm5vbWUiOiJBbWF6b25hcyIsInJlZ2lhbyI6eyJpZCI6MSwic2lnbGEiOiJOIiwibm9tZSI6Ik5vcnRlIn19LHsiaWQiOjE0LCJzaWdsYSI6IlJSIiwibm9tZSI6IlJvcmFpbWEiLCJyZWdpYW8iOnsiaWQiOjEsInNpZ2xhIjoiTiIsIm5vbWUiOiJOb3J0ZSJ9fSx7ImlkIjoxNSwic2lnbGEiOiJQQSIsIm5vbWUiOiJQYXLDoSIsInJlZ2lhbyI6eyJpZCI6MSwic2lnbGEiOiJOIiwibm9tZSI6Ik5vcnRlIn19LHsiaWQiOjE2LCJzaWdsYSI6IkFQIiwibm9tZSI6IkFtYXDDoSIsInJlZ2lhbyI6eyJpZCI6MSwic2lnbGEiOiJOIiwibm9tZSI6Ik5vcnRlIn19LHsiaWQiOjE3LCJzaWdsYSI6IlRPIiwibm9tZSI6IlRvY2FudGlucyIsInJlZ2lhbyI6eyJpZCI6MSwic2lnbGEiOiJOIiwibm9tZSI6Ik5vcnRlIn19LHsiaWQiOjIxLCJzaWdsYSI6Ik1BIiwibm9tZSI6Ik1hcmFuaMOjbyIsInJlZ2lhbyI6eyJpZCI6Miwic2lnbGEiOiJORSIsIm5vbWUiOiJOb3JkZXN0ZSJ9fSx7ImlkIjoyMiwic2lnbGEiOiJQSSIsIm5vbWUiOiJQaWF1w60iLCJyZWdpYW8iOnsiaWQiOjIsInNpZ2xhIjoiTkUiLCJub21lIjoiTm9yZGVzdGUifX0seyJpZCI6MjMsInNpZ2xhIjoiQ0UiLCJub21lIjoiQ2VhcsOhIiwicmVnaWFvIjp7ImlkIjoyLCJzaWdsYSI6Ik5FIiwibm9tZSI6Ik5vcmRlc3RlIn19LHsiaWQiOjI0LCJzaWdsYSI6IlJOIiwibm9tZSI6IlJpbyBHcmFuZGUgZG8gTm9ydGUiLCJyZWdpYW8iOnsiaWQiOjIsInNpZ2xhIjoiTkUiLCJub21lIjoiTm9yZGVzdGUifX0seyJpZCI6MjUsInNpZ2xhIjoiUEIiLCJub21lIjoiUGFyYcOtYmEiLCJyZWdpYW8iOnsiaWQiOjIsInNpZ2xhIjoiTkUiLCJub21lIjoiTm9yZGVzdGUifX0seyJpZCI6MjYsInNpZ2xhIjoiUEUiLCJub21lIjoiUGVybmFtYnVjbyIsInJlZ2lhbyI6eyJpZCI6Miwic2lnbGEiOiJORSIsIm5vbWUiOiJOb3JkZXN0ZSJ9fSx7ImlkIjoyNywic2lnbGEiOiJBTCIsIm5vbWUiOiJBbGFnb2FzIiwicmVnaWFvIjp7ImlkIjoyLCJzaWdsYSI6Ik5FIiwibm9tZSI6Ik5vcmRlc3RlIn19LHsiaWQiOjI4LCJzaWdsYSI6IlNFIiwibm9tZSI6IlNlcmdpcGUiLCJyZWdpYW8iOnsiaWQiOjIsInNpZ2xhIjoiTkUiLCJub21lIjoiTm9yZGVzdGUifX0seyJpZCI6MjksInNpZ2xhIjoiQkEiLCJub21lIjoiQmFoaWEiLCJyZWdpYW8iOnsiaWQiOjIsInNpZ2xhIjoiTkUiLCJub21lIjoiTm9yZGVzdGUifX0seyJpZCI6MzEsInNpZ2xhIjoiTUciLCJub21lIjoiTWluYXMgR2VyYWlzIiwicmVnaWFvIjp7ImlkIjozLCJzaWdsYSI6IlNFIiwibm9tZSI6IlN1ZGVzdGUifX0seyJpZCI6MzIsInNpZ2xhIjoiRVMiLCJub21lIjoiRXNww61yaXRvIFNhbnRvIiwicmVnaWFvIjp7ImlkIjozLCJzaWdsYSI6IlNFIiwibm9tZSI6IlN1ZGVzdGUifX0seyJpZCI6MzMsInNpZ2xhIjoiUkoiLCJub21lIjoiUmlvIGRlIEphbmVpcm8iLCJyZWdpYW8iOnsiaWQiOjMsInNpZ2xhIjoiU0UiLCJub21lIjoiU3VkZXN0ZSJ9fSx7ImlkIjozNSwic2lnbGEiOiJTUCIsIm5vbWUiOiJTw6NvIFBhdWxvIiwicmVnaWFvIjp7ImlkIjozLCJzaWdsYSI6IlNFIiwibm9tZSI6IlN1ZGVzdGUifX0seyJpZCI6NDEsInNpZ2xhIjoiUFIiLCJub21lIjoiUGFyYW7DoSIsInJlZ2lhbyI6eyJpZCI6NCwic2lnbGEiOiJTIiwibm9tZSI6IlN1bCJ9fSx7ImlkIjo0Miwic2lnbGEiOiJTQyIsIm5vbWUiOiJTYW50YSBDYXRhcmluYSIsInJlZ2lhbyI6eyJpZCI6NCwic2lnbGEiOiJTIiwibm9tZSI6IlN1bCJ9fSx7ImlkIjo0Mywic2lnbGEiOiJSUyIsIm5vbWUiOiJSaW8gR3JhbmRlIGRvIFN1bCIsInJlZ2lhbyI6eyJpZCI6NCwic2lnbGEiOiJTIiwibm9tZSI6IlN1bCJ9fSx7ImlkIjo1MCwic2lnbGEiOiJNUyIsIm5vbWUiOiJNYXRvIEdyb3NzbyBkbyBTdWwiLCJyZWdpYW8iOnsiaWQiOjUsInNpZ2xhIjoiQ08iLCJub21lIjoiQ2VudHJvLU9lc3RlIn19LHsiaWQiOjUxLCJzaWdsYSI6Ik1UIiwibm9tZSI6Ik1hdG8gR3Jvc3NvIiwicmVnaWFvIjp7ImlkIjo1LCJzaWdsYSI6IkNPIiwibm9tZSI6IkNlbnRyby1PZXN0ZSJ9fSx7ImlkIjo1Miwic2lnbGEiOiJHTyIsIm5vbWUiOiJHb2nDoXMiLCJyZWdpYW8iOnsiaWQiOjUsInNpZ2xhIjoiQ08iLCJub21lIjoiQ2VudHJvLU9lc3RlIn19LHsiaWQiOjUzLCJzaWdsYSI6IkRGIiwibm9tZSI6IkRpc3RyaXRvIEZlZGVyYWwiLCJyZWdpYW8iOnsiaWQiOjUsInNpZ2xhIjoiQ08iLCJub21lIjoiQ2VudHJvLU9lc3RlIn19XQ==
+  recorded_at: Fri, 08 Apr 2022 01:36:17 GMT
+- request:
+    method: get
+    uri: https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=12&sexo=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 08 Apr 2022 01:36:19 GMT
+      server:
+      - Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_qos/11.5
+      content-type:
+      - application/json
+      content-length:
+      - '1022'
+      cache-control:
+      - max-age=1
+      expires:
+      - Fri, 08 Apr 2022 01:36:19 GMT
+      access-control-allow-methods:
+      - GET
+      access-control-allow-origin:
+      - "*"
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '[{"localidade":"12","sexo":null,"res":[{"nome":"MARIA","frequencia":63172,"ranking":1},{"nome":"JOSE","frequencia":24599,"ranking":2},{"nome":"FRANCISCO","frequencia":21103,"ranking":3},{"nome":"ANTONIO","frequencia":17035,"ranking":4},{"nome":"ANA","frequencia":10459,"ranking":5},{"nome":"JOAO","frequencia":10383,"ranking":6},{"nome":"FRANCISCA","frequencia":10258,"ranking":7},{"nome":"RAIMUNDO","frequencia":8993,"ranking":8},{"nome":"ANTONIA","frequencia":6102,"ranking":9},{"nome":"RAIMUNDA","frequencia":5195,"ranking":10},{"nome":"MANOEL","frequencia":4728,"ranking":11},{"nome":"PEDRO","frequencia":4234,"ranking":12},{"nome":"CARLOS","frequencia":4188,"ranking":13},{"nome":"PAULO","frequencia":3946,"ranking":14},{"nome":"MARCOS","frequencia":3651,"ranking":15},{"nome":"LUCAS","frequencia":3514,"ranking":16},{"nome":"SEBASTIAO","frequencia":3215,"ranking":17},{"nome":"LUIZ","frequencia":3146,"ranking":18},{"nome":"MATEUS","frequencia":2628,"ranking":19},{"nome":"GABRIEL","frequencia":2508,"ranking":20}]}]'
+  recorded_at: Fri, 08 Apr 2022 01:36:17 GMT
+- request:
+    method: get
+    uri: https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=12&sexo=M
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 08 Apr 2022 01:36:19 GMT
+      server:
+      - Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_qos/11.5
+      content-type:
+      - application/json
+      content-length:
+      - '1015'
+      cache-control:
+      - max-age=1
+      expires:
+      - Fri, 08 Apr 2022 01:36:19 GMT
+      access-control-allow-methods:
+      - GET
+      access-control-allow-origin:
+      - "*"
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '[{"localidade":"12","sexo":"m","res":[{"nome":"JOSE","frequencia":24498,"ranking":1},{"nome":"FRANCISCO","frequencia":20994,"ranking":2},{"nome":"ANTONIO","frequencia":16962,"ranking":3},{"nome":"JOAO","frequencia":10337,"ranking":4},{"nome":"RAIMUNDO","frequencia":8946,"ranking":5},{"nome":"MANOEL","frequencia":4717,"ranking":6},{"nome":"PEDRO","frequencia":4217,"ranking":7},{"nome":"CARLOS","frequencia":4171,"ranking":8},{"nome":"PAULO","frequencia":3922,"ranking":9},{"nome":"MARCOS","frequencia":3628,"ranking":10},{"nome":"LUCAS","frequencia":3473,"ranking":11},{"nome":"SEBASTIAO","frequencia":3202,"ranking":12},{"nome":"LUIZ","frequencia":3121,"ranking":13},{"nome":"MATEUS","frequencia":2608,"ranking":14},{"nome":"GABRIEL","frequencia":2465,"ranking":15},{"nome":"DANIEL","frequencia":2374,"ranking":16},{"nome":"BRUNO","frequencia":1833,"ranking":17},{"nome":"MARCELO","frequencia":1832,"ranking":18},{"nome":"FELIPE","frequencia":1806,"ranking":19},{"nome":"ANDRE","frequencia":1802,"ranking":20}]}]'
+  recorded_at: Fri, 08 Apr 2022 01:36:17 GMT
+- request:
+    method: get
+    uri: https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking?localidade=12&sexo=F
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 08 Apr 2022 01:36:19 GMT
+      server:
+      - Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_qos/11.5
+      content-type:
+      - application/json
+      content-length:
+      - '1023'
+      cache-control:
+      - max-age=1
+      expires:
+      - Fri, 08 Apr 2022 01:36:19 GMT
+      access-control-allow-methods:
+      - GET
+      access-control-allow-origin:
+      - "*"
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '[{"localidade":"12","sexo":"f","res":[{"nome":"MARIA","frequencia":62931,"ranking":1},{"nome":"ANA","frequencia":10405,"ranking":2},{"nome":"FRANCISCA","frequencia":10188,"ranking":3},{"nome":"ANTONIA","frequencia":6050,"ranking":4},{"nome":"RAIMUNDA","frequencia":5163,"ranking":5},{"nome":"VITORIA","frequencia":1538,"ranking":6},{"nome":"VANESSA","frequencia":1469,"ranking":7},{"nome":"ADRIANA","frequencia":1454,"ranking":8},{"nome":"SARA","frequencia":1405,"ranking":9},{"nome":"ALINE","frequencia":1380,"ranking":10},{"nome":"FERNANDA","frequencia":1335,"ranking":11},{"nome":"SEBASTIANA","frequencia":1330,"ranking":12},{"nome":"JULIANA","frequencia":1316,"ranking":13},{"nome":"LUANA","frequencia":1271,"ranking":14},{"nome":"BRUNA","frequencia":1247,"ranking":15},{"nome":"SANDRA","frequencia":1238,"ranking":16},{"nome":"AMANDA","frequencia":1212,"ranking":17},{"nome":"RAQUEL","frequencia":1161,"ranking":18},{"nome":"ANDRESSA","frequencia":1159,"ranking":19},{"nome":"MARCIA","frequencia":1146,"ranking":20}]}]'
+  recorded_at: Fri, 08 Apr 2022 01:36:18 GMT
+recorded_with: VCR 6.1.0
