@@ -46,6 +46,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
+    vcr (6.1.0)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -57,6 +58,7 @@ DEPENDENCIES
   rspec
   stringio
   terminal-table
+  vcr
 
 BUNDLED WITH
    2.1.4
