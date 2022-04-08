@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'vcr'
 require_relative '../../lib/view'
 require_relative '../../lib/pesquisa'
 
