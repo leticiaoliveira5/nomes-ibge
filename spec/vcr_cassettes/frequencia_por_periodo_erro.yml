@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://servicodados.ibge.gov.br/api/v2/censos/nomes/Magaalii
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 08 Apr 2022 02:07:12 GMT
+      server:
+      - Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips mod_qos/11.5
+      content-type:
+      - application/json
+      content-length:
+      - '2'
+      cache-control:
+      - max-age=1
+      expires:
+      - Fri, 08 Apr 2022 02:07:12 GMT
+      access-control-allow-methods:
+      - GET
+      access-control-allow-origin:
+      - "*"
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: "[]"
+  recorded_at: Fri, 08 Apr 2022 02:07:11 GMT
+recorded_with: VCR 6.1.0
