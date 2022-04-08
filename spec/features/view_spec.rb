@@ -1,6 +1,4 @@
 require 'spec_helper'
-require_relative '../../lib/view'
-require_relative '../../lib/pesquisa'
 
 describe View do
   context '#bem_vindo' do
