@@ -1,4 +1,7 @@
 ## :memo: Nomes Populares do Brasil
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/50ea3cbee57149898453ee6c3a6b4939)](https://app.codacy.com/gh/leticiaoliveira5/nomes-ibge?utm_source=github.com&utm_medium=referral&utm_content=leticiaoliveira5/nomes-ibge&utm_campaign=Badge_Grade_Settings)
+
 Aplicação Ruby para uso no terminal que permite acesso à estatísticas de nomes populares no Brasil, com dados do IBGE.
 
 ### :white_check_mark: Funcionalidades
