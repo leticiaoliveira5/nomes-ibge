@@ -6,3 +6,4 @@ VCR.configure do |c|
   c.hook_into :faraday
   c.configure_rspec_metadata!
 end
+
