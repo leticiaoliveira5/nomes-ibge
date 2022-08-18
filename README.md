@@ -31,11 +31,12 @@ Ou, se não tiver o [Git](https://git-scm.com) instalado, faça o download manua
 * Acesse a pasta do projeto no terminal/cmd
 ```bash
 cd nomes-ibge
+bundle install
 ```
 
 * Roda a aplicação no terminal com
 ```bash
-./nomes_brasil
+ruby nomes_brasil.rb
 ```
 
 ### :gem: Gems utilizadas
