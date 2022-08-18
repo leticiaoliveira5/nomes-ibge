@@ -1,7 +1,8 @@
 require_relative 'view'
 require_relative 'api'
+require_relative 'parse_csv'
 
-PARSED_POPULATION_FILE = eval(File.read('data/parsed_population_data'))
+PARSED_POPULATION_FILE = ParseCSV.call
 SEXOS = { 'M' => 'Masculino', 'F' => 'Feminino', '0' => 'Todos' }.freeze
 
 class Pesquisa
