@@ -5,9 +5,6 @@ echo '================ Instalando dependências... ================='
 echo
 bundle install
 echo
-echo '===================== Extraindo Dados... ====================='
-ruby 'data/parse_population_data_script.rb'
-echo
 echo '==================== Testando o código... ===================='
 echo
 rspec
